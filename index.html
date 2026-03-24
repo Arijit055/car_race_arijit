@@ -8,7 +8,7 @@
   body { margin: 0; overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; color: white; user-select: none; touch-action: none; }
   
   /* ==========================================
-     START MENU STYLES
+      START MENU STYLES
      ========================================== */
   #start-menu {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -54,7 +54,7 @@
   .reset-btn:hover { background: #ff0033; color: white; box-shadow: 0 0 10px #ff0033; }
 
   /* ==========================================
-     IN-GAME UI
+      IN-GAME UI
      ========================================== */
   body:not(.in-game) #ui,
   body:not(.in-game) #mobile-controls,
@@ -65,7 +65,6 @@
   #best-ui { font-size: 12px; color: #888; margin-bottom: 10px; }
   #coins-container { font-size: 18px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
   
-  /* Speedometer Styles */
   #speedometer-ui {
       color: #00ffcc;
       font-size: 24px;
@@ -217,13 +216,13 @@ const coinSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/2013/2013
 coinSnd.volume = 0.6;
 const playCoinSound = () => { let c = coinSnd.cloneNode(); c.volume = 0.4; c.play().catch(()=>{}); };
 
-const magnetSnd = new Audio("car_magnet.mpeg");
+const magnetSnd = new Audio(" car_magnet.mpeg");
 magnetSnd.volume = 0.8;
 
 const nitroSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/1654/1654-preview.mp3");
 nitroSnd.volume = 0.7; nitroSnd.loop = true;
 
-const damageSnd = new Audio("car_damage.mpeg");
+const damageSnd = new Audio(" car_damage.mpeg");
 damageSnd.volume = 0.8;
 
 const gameOverSnd = new Audio("car_over.mpeg");
@@ -234,7 +233,7 @@ let isBoosting = false;
 
 function startAudio() {
     if(!audioStarted){ 
-        // We do NOT play engine sound immediately on start, wait until car moves
+        // Background music starts immediately
         music.play().catch(e => console.log("Audio blocked")); 
         audioStarted = true; 
     }
@@ -266,7 +265,6 @@ for(let i=0; i<starCount; i++){
 starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({color:0xffffff, size:0.7})));
 
-// --- SOLID GRAY FLOOR BASE ---
 const solidFloor = new THREE.Mesh(
     new THREE.PlaneGeometry(2000, 4000),
     new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9, metalness: 0.1 })
@@ -297,7 +295,6 @@ const light = new THREE.PointLight(0x00ffff, 2, 50);
 light.position.set(0, 10, 10); 
 scene.add(light);
 
-// --- PURE BLACK ROAD ---
 const road = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 4000), 
     new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0.9, roughness: 0.2})
@@ -343,7 +340,6 @@ for(let i=0; i<150; i++){
   buildings.push(b);
 }
 
-// Car Construction
 let car, flame, shieldMesh;
 function buildCar(){
   if(car) scene.remove(car);
@@ -402,9 +398,6 @@ function buildCar(){
 }
 buildCar();
 
-// ==========================================
-// MENU RENDERING LOGIC
-// ==========================================
 function renderMenu(){
   const upgDiv = document.getElementById("upgrades");
   const engCost = save.engineLevel * 50;
@@ -492,9 +485,6 @@ window.resetGame = () => {
 
 renderMenu();
 
-// ==========================================
-// INPUT CONTROLS
-// ==========================================
 const keys = {}; 
 onkeydown = e => keys[e.code] = true; 
 onkeyup = e => keys[e.code] = false;
@@ -511,9 +501,6 @@ bindTouch('btn-accel', 'ArrowUp');
 bindTouch('btn-brake', 'ArrowDown');
 bindTouch('btn-nitro', 'Space');
 
-// ==========================================
-// ENTITIES
-// ==========================================
 const traffic = [];
 for(let i=0; i<6; i++){
   const t = new THREE.Mesh(new THREE.BoxGeometry(2, 1, 4), new THREE.MeshStandardMaterial({color:0x00e0e0}));
@@ -565,18 +552,9 @@ function animate(){
   const acceleration = 140 + (save.engineLevel * 20);
   const magnetRange = 10 + (save.magnetLevel * 8);
 
-  // --- UPDATED SPEED AND FRICTION LOGIC ---
-  const accel = (keys['KeyW'] || keys['ArrowUp']) ? 1 : (keys['KeyS'] || keys['ArrowDown']) ? -1.5 : 0;
+  const accel = (keys['KeyW'] || keys['ArrowUp']) ? 1 : (keys['KeyS'] || keys['ArrowDown']) ? -0.7 : 0;
+  speed = clamp(speed + accel * acceleration * d, 0, maxSpeed);
   
-  if (accel !== 0) {
-      // Speed up or brake
-      speed = clamp(speed + accel * acceleration * d, 0, maxSpeed);
-  } else {
-      // Natural Friction - Car slows down to 0 when no keys are pressed
-      speed = clamp(speed - 80 * d, 0, maxSpeed);
-  }
-  
-  // Nitro Boost
   if(keys['Space'] && nitro > 0){
     speed += acceleration * d; 
     nitro -= 60 * d; 
@@ -592,7 +570,6 @@ function animate(){
   }
   camera.updateProjectionMatrix();
 
-  // Steering
   const steeringInput = (keys['KeyA'] || keys['ArrowLeft'] ? -1 : keys['KeyD'] || keys['ArrowRight'] ? 1 : 0);
   steer += (steeringInput - steer) * 0.1; 
   if (steeringInput === 0) steer *= 0.85; 
@@ -603,7 +580,6 @@ function animate(){
 
   distanceTraveled += (speed * d) / 10;
 
-  // Magnet Timer
   if(magnetTimeLeft > 0) {
       magnetTimeLeft -= d;
       document.getElementById('mag-timer-ui').style.display = 'block';
@@ -613,7 +589,6 @@ function animate(){
       document.getElementById('mag-timer-ui').style.display = 'none';
   }
 
-  // Milestones & Score
   if(Math.floor(distanceTraveled / 1000) > lastMilestone){
     lastMilestone = Math.floor(distanceTraveled / 1000); 
     coinScore += 50; 
@@ -631,46 +606,31 @@ function animate(){
     document.getElementById('best-ui').innerText = `Best: ${save.highScore} m`;
   }
 
-  // UI Updates
   document.getElementById('dist-ui').innerText = Math.floor(distanceTraveled) + " m";
   document.getElementById('coins').innerText = coinScore;
-  
-  // Update Digital Speedometer
   document.getElementById('speed-val').innerText = Math.floor(speed);
-
   document.getElementById('healthBar').style.width = health + "%";
   document.getElementById('nitroBar').style.width = nitro + "%";
 
   if(shieldMesh && save.hasShield){ shieldMesh.rotation.y += d*2; shieldMesh.rotation.z += d; }
   
   // ==========================================
-  // UPDATED AUDIO ENGINE LOGIC
+  // FIXED ENGINE SOUND LOGIC
   // ==========================================
   if(audioStarted) {
-      // Set pitch based on speed
-      engineSnd.playbackRate = Math.max(0.6, 0.6 + (speed / maxSpeed));
-      
-      // Only play the sound if the car is actually moving (Speed > 1)
-      if (speed > 1 && !gameOver) {
-          if (engineSnd.paused) {
-              let playPromise = engineSnd.play();
-              if (playPromise !== undefined) {
-                  playPromise.catch(e => { /* Ignore auto-play errors */ });
-              }
-          }
+      engineSnd.playbackRate = 0.6 + speed / maxSpeed;
+      // Car is moving (speed > 0.5) and not game over
+      if (speed > 0.5 && !gameOver) {
+          if (engineSnd.paused) engineSnd.play().catch(()=>{});
       } else {
-          // Pause the sound perfectly when the car reaches 0 speed
-          if (!engineSnd.paused) {
-              engineSnd.pause();
-          }
+          // Car is stopped or crashed
+          if (!engineSnd.paused) engineSnd.pause();
       }
   }
 
-  // Environment Movement
   for(let l of lines){ l.position.z += speed * d * 2; if(l.position.z > 20) l.position.z -= 3200; }
   for(let r of rails){ r.position.z += speed * d * 2; if(r.position.z > 20) r.position.z -= 4000; }
   
-  // Moving Buildings
   for(let b of buildings){
     b.position.z += speed * d * 2;
     if(b.position.z > 50){
@@ -680,7 +640,6 @@ function animate(){
     }
   }
 
-  // Magnet Spawning & Logic
   magnetPowerup.position.z += speed * d * 2;
   magnetPowerup.rotation.y += d * 3;
   if(magnetPowerup.position.z > 20){ magnetPowerup.position.z = -1000 - Math.random() * 1000; magnetPowerup.position.x = Math.random() * 14 - 7; }
@@ -691,7 +650,6 @@ function animate(){
     if(audioStarted) { magnetSnd.currentTime = 0; magnetSnd.play().catch(()=>{}); }
   }
 
-  // Traffic & Collisions
   for(let t of traffic){
     t.position.z += speed * d * 2; 
     if(t.position.z > 20){ t.position.z = -400; t.position.x = Math.random() * 14 - 7; }
@@ -708,7 +666,6 @@ function animate(){
         health = clamp(health - 20, 0, 100); 
         
         if(health <= 0){ 
-          // PLAYER IS DEAD -> PLAY GAME OVER AUDIO
           gameOver = true; 
           car.visible = false; 
           document.getElementById('gameover').style.display = 'block'; 
@@ -716,10 +673,9 @@ function animate(){
           
           if(audioStarted) { 
               engineSnd.pause(); music.pause(); nitroSnd.pause();
-              gameOverSnd.play().catch(()=>{}); // Game Over Deep Male Voice
+              gameOverSnd.play().catch(()=>{});
           }
         } else {
-          // PLAYER TOOK DAMAGE BUT IS STILL ALIVE -> PLAY DAMAGE/CRASH SOUND
           if(audioStarted) {
               damageSnd.currentTime = 0;
               damageSnd.play().catch(()=>{});
@@ -730,7 +686,6 @@ function animate(){
     }
   }
 
-  // Coins Spawning & Collection
   for(let c of coinsArr){
     c.rotation.y += 3 * d; 
     c.position.z += speed * d * 2;
@@ -754,7 +709,6 @@ function animate(){
     }
   }
 
-  // Camera Follow
   camera.position.x += (car.position.x * 0.6 - camera.position.x) * 0.08;
   camera.lookAt(car.position.x, 1, -5);
 
