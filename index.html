@@ -209,29 +209,29 @@ let speed = 0, steer = 0, health = 100, nitro = 100;
 // AUDIO SETUP
 // ==========================================
 // CUSTOM AUDIO FILES ADDED HERE
-const engineSnd = new Audio("car_engine.mpeg");
+const engineSnd = new Audio("car_engine.mp3");
 const music = new Audio("car_back.mp3");
 engineSnd.loop = music.loop = true; 
 engineSnd.volume = 0.25; music.volume = 0.1;
 
 const coinSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3");
-coinSnd.volume = 0.7;
+coinSnd.volume = 0.6;
 const playCoinSound = () => { let c = coinSnd.cloneNode(); c.volume = 0.4; c.play().catch(()=>{}); };
 
 // Better Magnet Sound
 const magnetSnd = new Audio(" car_magnet.mpeg");
-magnetSnd.volume = 0.9;
+magnetSnd.volume = 0.8;
 
 const nitroSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/1654/1654-preview.mp3");
 nitroSnd.volume = 0.7; nitroSnd.loop = true;
 
 // Better Damage Sound
 const damageSnd = new Audio(" car_damage.mpeg");
-damageSnd.volume = 0.9;
+damageSnd.volume = 0.8;
 
 // Better Game Over Sound
 const gameOverSnd = new Audio("car_over.mpeg");
-gameOverSnd.volume = 2.0;
+gameOverSnd.volume = 1.0;
 
 let audioStarted = false;
 let isBoosting = false;
