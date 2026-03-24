@@ -208,7 +208,6 @@ let speed = 0, steer = 0, health = 100, nitro = 100;
 // ==========================================
 // AUDIO SETUP
 // ==========================================
-// CUSTOM AUDIO FILES ADDED HERE
 const engineSnd = new Audio("car_engine.mp3");
 const music = new Audio("car_back.mp3");
 engineSnd.loop = music.loop = true; 
@@ -218,18 +217,15 @@ const coinSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/2013/2013
 coinSnd.volume = 0.6;
 const playCoinSound = () => { let c = coinSnd.cloneNode(); c.volume = 0.4; c.play().catch(()=>{}); };
 
-// Better Magnet Sound
-const magnetSnd = new Audio(" car_magnet.mpeg");
+const magnetSnd = new Audio("car_magnet.mpeg");
 magnetSnd.volume = 0.8;
 
 const nitroSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/1654/1654-preview.mp3");
 nitroSnd.volume = 0.7; nitroSnd.loop = true;
 
-// Better Damage Sound
-const damageSnd = new Audio(" car_damage.mpeg");
+const damageSnd = new Audio("car_damage.mpeg");
 damageSnd.volume = 0.8;
 
-// Better Game Over Sound
 const gameOverSnd = new Audio("car_over.mpeg");
 gameOverSnd.volume = 1.0;
 
@@ -238,7 +234,7 @@ let isBoosting = false;
 
 function startAudio() {
     if(!audioStarted){ 
-        engineSnd.play().catch(e => console.log("Audio blocked")); 
+        // We do NOT play engine sound immediately on start, wait until car moves
         music.play().catch(e => console.log("Audio blocked")); 
         audioStarted = true; 
     }
@@ -270,7 +266,7 @@ for(let i=0; i<starCount; i++){
 starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({color:0xffffff, size:0.7})));
 
-// --- UPDATED: SOLID GRAY FLOOR BASE ---
+// --- SOLID GRAY FLOOR BASE ---
 const solidFloor = new THREE.Mesh(
     new THREE.PlaneGeometry(2000, 4000),
     new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9, metalness: 0.1 })
@@ -301,7 +297,7 @@ const light = new THREE.PointLight(0x00ffff, 2, 50);
 light.position.set(0, 10, 10); 
 scene.add(light);
 
-// --- UPDATED: PURE BLACK ROAD ---
+// --- PURE BLACK ROAD ---
 const road = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 4000), 
     new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0.9, roughness: 0.2})
@@ -569,8 +565,16 @@ function animate(){
   const acceleration = 140 + (save.engineLevel * 20);
   const magnetRange = 10 + (save.magnetLevel * 8);
 
-  const accel = (keys['KeyW'] || keys['ArrowUp']) ? 1 : (keys['KeyS'] || keys['ArrowDown']) ? -0.7 : 0;
-  speed = clamp(speed + accel * acceleration * d, 0, maxSpeed);
+  // --- UPDATED SPEED AND FRICTION LOGIC ---
+  const accel = (keys['KeyW'] || keys['ArrowUp']) ? 1 : (keys['KeyS'] || keys['ArrowDown']) ? -1.5 : 0;
+  
+  if (accel !== 0) {
+      // Speed up or brake
+      speed = clamp(speed + accel * acceleration * d, 0, maxSpeed);
+  } else {
+      // Natural Friction - Car slows down to 0 when no keys are pressed
+      speed = clamp(speed - 80 * d, 0, maxSpeed);
+  }
   
   // Nitro Boost
   if(keys['Space'] && nitro > 0){
@@ -643,13 +647,22 @@ function animate(){
   // UPDATED AUDIO ENGINE LOGIC
   // ==========================================
   if(audioStarted) {
-      engineSnd.playbackRate = 0.6 + speed / maxSpeed;
-      // Only play the sound if the car is actually moving
+      // Set pitch based on speed
+      engineSnd.playbackRate = Math.max(0.6, 0.6 + (speed / maxSpeed));
+      
+      // Only play the sound if the car is actually moving (Speed > 1)
       if (speed > 1 && !gameOver) {
-          if (engineSnd.paused) engineSnd.play().catch(()=>{});
+          if (engineSnd.paused) {
+              let playPromise = engineSnd.play();
+              if (playPromise !== undefined) {
+                  playPromise.catch(e => { /* Ignore auto-play errors */ });
+              }
+          }
       } else {
-          // Pause the sound when stopped
-          if (!engineSnd.paused) engineSnd.pause();
+          // Pause the sound perfectly when the car reaches 0 speed
+          if (!engineSnd.paused) {
+              engineSnd.pause();
+          }
       }
   }
 
