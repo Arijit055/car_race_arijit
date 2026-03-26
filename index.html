@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -783,6 +783,12 @@ function animate(){
   renderer.render(scene, camera);
 }
 animate();
+// ট্যাব চেঞ্জ করলে বা উইন্ডো মিনিমাইজ করলে গেম অটো-পজ হবে
+window.addEventListener('blur', () => {
+    if (gameStarted && !gameOver && !isPaused) {
+        togglePause(); // এটি তোর বন্ধুর তৈরি করা পজ ফাংশনটিকে কল করবে
+    }
+});
 
 addEventListener('resize', () => { 
   camera.aspect = innerWidth / innerHeight; 
