@@ -3,210 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Neon Racing Ultimate ULTRA - Lamborghini, Ferrari, Bugatti & BMW Edition</title>
+<title>Neon Racing Ultimate ULTRA</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; color: white; user-select: none; touch-action: none; width: 100vw; height: 100vh; }
-  
-  #start-menu {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 15, 0.85); backdrop-filter: blur(5px);
-      z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-      overflow-y: auto; padding: 40px 0;
-  }
-  .title-neon {
-      color: #fff; font-size: 40px; font-style: italic; font-weight: 900; text-transform: uppercase;
-      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-      margin-bottom: 5px; text-align: center;
-  }
-  .subtitle-neon {
-      color: #00ffcc; font-size: 18px; letter-spacing: 3px; font-weight: bold; margin-bottom: 30px;
-      text-shadow: 0 0 8px #00ffcc; text-align: center;
-  }
+  #start-menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,15,0.88); backdrop-filter: blur(6px); z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; overflow-y: auto; padding: 40px 0; }
+  .title-neon { color: #fff; font-size: 40px; font-style: italic; font-weight: 900; text-transform: uppercase; text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff; margin-bottom: 5px; text-align: center; }
+  .subtitle-neon { color: #00ffcc; font-size: 18px; letter-spacing: 3px; font-weight: bold; margin-bottom: 30px; text-shadow: 0 0 8px #00ffcc; text-align: center; }
   .menu-stats { font-size: 24px; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 10px #ffcc00; }
-  
-  .start-btn {
-      background: #ff0055; color: white; font-size: 28px; font-weight: 900; letter-spacing: 2px;
-      padding: 15px 50px; border: none; border-radius: 8px; cursor: pointer;
-      box-shadow: 0 0 15px #ff0055; transition: 0.2s; text-transform: uppercase;
-      margin-bottom: 30px; animation: pulse 1.5s infinite alternate; width: auto;
-  }
+  .start-btn { background: #ff0055; color: white; font-size: 28px; font-weight: 900; letter-spacing: 2px; padding: 15px 50px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px #ff0055; transition: 0.2s; text-transform: uppercase; margin-bottom: 30px; animation: pulse 1.5s infinite alternate; width: auto; }
   .start-btn:hover { background: #ff3377; box-shadow: 0 0 25px #ff3377; transform: scale(1.05); }
   @keyframes pulse { from { box-shadow: 0 0 10px #ff0055; } to { box-shadow: 0 0 25px #ff0055; } }
-
-  .menu-grid {
-      display: flex; gap: 20px; max-width: 800px; width: 90%; justify-content: center; flex-wrap: wrap;
-  }
-  .menu-panel {
-      background: rgba(20, 20, 30, 0.9); padding: 20px; border-radius: 12px;
-      border: 1px solid #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
-      flex: 1; min-width: 250px;
-  }
+  .menu-grid { display: flex; gap: 20px; max-width: 800px; width: 90%; justify-content: center; flex-wrap: wrap; }
+  .menu-panel { background: rgba(20,20,30,0.9); padding: 20px; border-radius: 12px; border: 1px solid #00ffcc; box-shadow: 0 0 15px rgba(0,255,204,0.2); flex: 1; min-width: 250px; }
   .menu-panel h3 { margin-top: 0; color: #00ffcc; border-bottom: 1px solid #444; padding-bottom: 10px; font-size: 18px; text-align: center; }
-  .garage-header {
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px;
-  }
+  .garage-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
   .garage-header h3 { border: none; padding: 0; margin: 0; flex-grow: 1; }
-  .nav-arrow { 
-      background: transparent; border: none; color: #00ffcc; font-size: 24px; 
-      width: 40px; padding: 5px; cursor: pointer; transition: 0.2s; margin-top: 0; 
-  }
+  .nav-arrow { background: transparent; border: none; color: #00ffcc; font-size: 24px; width: 40px; padding: 5px; cursor: pointer; transition: 0.2s; margin-top: 0; }
   .nav-arrow:hover { color: #fff; transform: scale(1.2); background: transparent; }
-
   button { width: 100%; margin-top: 8px; cursor: pointer; padding: 12px; border: none; border-radius: 6px; background: #333; color: white; font-weight: bold; transition: 0.2s; }
   button:hover:not(:disabled) { background: #555; }
   .buy-btn { background: #00887a; } .buy-btn:hover:not(:disabled) { background: #00b3a1; }
   .magnet-btn { background: #c0392b; } .magnet-btn:hover:not(:disabled) { background: #e74c3c; }
   .reset-btn { background: transparent; border: 1px solid #ff0033; color: #ff0033; margin-top: 30px; max-width: 200px; }
   .reset-btn:hover { background: #ff0033; color: white; box-shadow: 0 0 10px #ff0033; }
-
-  #pause-btn {
-      position: fixed; top: 20px; right: 20px; width: 55px; height: 55px;
-      background: rgba(0,0,0,0.7); border: 2px solid #00ffcc; border-radius: 50%;
-      color: #00ffcc; font-size: 24px; font-weight: bold; cursor: pointer; z-index: 1000;
-      display: none; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-  }
-  #pause-menu {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 15, 0.95); z-index: 2000; display: none;
-      flex-direction: column; align-items: center; justify-content: center;
-  }
-  .pause-card { background: #111; border: 2px solid #ff00ff; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 0 30px rgba(255, 0, 255, 0.3); }
+  #pause-btn { position: fixed; top: 20px; right: 20px; width: 55px; height: 55px; background: rgba(0,0,0,0.7); border: 2px solid #00ffcc; border-radius: 50%; color: #00ffcc; font-size: 24px; font-weight: bold; cursor: pointer; z-index: 1000; display: none; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,255,204,0.4); }
+  #pause-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,15,0.95); z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; }
+  .pause-card { background: #111; border: 2px solid #ff00ff; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 0 30px rgba(255,0,255,0.3); }
   .pause-opt { width: 200px; padding: 15px; margin: 10px; font-size: 18px; text-transform: uppercase; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; }
-  .resume-btn { background: #00ffcc; color: #000; }
-  .home-btn { background: #333; color: #fff; }
-
+  .resume-btn { background: #00ffcc; color: #000; } .home-btn { background: #333; color: #fff; }
   body:not(.in-game) #ui,
   body:not(.in-game) #mobile-controls,
   body:not(.in-game) #reward-flash,
   body:not(.in-game) #pause-btn,
-  body:not(.in-game) #sound-toggle-btn { display: none !important; }
-
-  #ui { position: absolute; left: 10px; top: 10px; background: rgba(0,0,0,.8); padding: 15px; border-radius: 10px; width: 220px; z-index: 10; box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); }
+  body:not(.in-game) #sound-toggle-btn,
+  body:not(.in-game) #damage-flash,
+  body:not(.in-game) #nitro-vignette,
+  body:not(.in-game) #speed-lines,
+  body:not(.in-game) #fps-counter { display: none !important; }
+  #ui { position: absolute; left: 10px; top: 10px; background: rgba(0,0,0,.82); padding: 15px; border-radius: 10px; width: 220px; z-index: 10; box-shadow: 0 0 10px rgba(255,0,255,0.2); border: 1px solid rgba(255,0,255,0.15); }
   #dist-ui { color: #ff00ff; font-size: 28px; font-weight: bold; margin-bottom: 2px; text-shadow: 0 0 5px #ff00ff; }
   #best-ui { font-size: 12px; color: #888; margin-bottom: 10px; }
   #coins-container { font-size: 18px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
-  #speedometer-ui { color: #00ffcc; font-size: 24px; font-weight: 900; margin-bottom: 15px; font-style: italic; text-shadow: 0 0 10px rgba(0, 255, 204, 0.6); }
+  #speedometer-ui { color: #00ffcc; font-size: 24px; font-weight: 900; margin-bottom: 15px; font-style: italic; text-shadow: 0 0 10px rgba(0,255,204,0.6); }
   #speed-val { font-size: 32px; color: #fff; }
   .label { font-size: 14px; font-weight: bold; margin-top: 8px; margin-bottom: 3px; }
   .bar { width: 100%; height: 12px; background: #222; border-radius: 6px; overflow: hidden; }
-  .fill { height: 100%; background: #00ffcc; width: 0%; box-shadow: 0 0 8px #00ffcc; transition: width 0.1s linear; }
+  .fill { height: 100%; width: 0%; box-shadow: 0 0 8px #00ffcc; transition: width 0.1s linear; }
   .stats-text { font-size: 11px; color: #00ffcc; margin-top: 15px; line-height: 1.5; }
   .stats-text span { display: block; }
-  #mag-timer-ui { color: #ff3366; font-size: 16px; font-weight: bold; margin-top: 15px; display: none; text-shadow: 0 0 8px #ff3366; text-align: center; background: rgba(255, 51, 102, 0.2); padding: 5px; border-radius: 5px; border: 1px solid #ff3366; }
-  #inGameShieldBtn { width: 100%; margin-top: 15px; padding: 10px; border: none; border-radius: 6px; background: #4a90e2; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); }
+  #mag-timer-ui { color: #ff3366; font-size: 16px; font-weight: bold; margin-top: 15px; display: none; text-shadow: 0 0 8px #ff3366; text-align: center; background: rgba(255,51,102,0.2); padding: 5px; border-radius: 5px; border: 1px solid #ff3366; }
+  #inGameShieldBtn { width: 100%; margin-top: 15px; padding: 10px; border: none; border-radius: 6px; background: #4a90e2; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 0 8px rgba(74,144,226,0.5); }
   #inGameShieldBtn:disabled { background: #333; cursor: not-allowed; box-shadow: none; opacity: 0.6; }
   #inGameShieldBtn:active:not(:disabled) { transform: scale(0.95); }
-
-  /* Sound Toggle Button */
-  #sound-toggle-btn {
-      position: fixed; top: 20px; right: 85px; width: 55px; height: 55px;
-      background: rgba(0,0,0,0.7); border: 2px solid #ffcc00; border-radius: 50%;
-      color: #ffcc00; font-size: 18px; font-weight: bold; cursor: pointer; z-index: 1000;
-      display: none; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
-  }
-
-  /* Sound Panel */
-  #sound-panel {
-      position: absolute; right: 10px; top: 90px; background: rgba(0,0,0,.9);
-      padding: 14px; border-radius: 10px; width: 210px; z-index: 10;
-      box-shadow: 0 0 12px rgba(255,204,0,0.3); display: none;
-      border: 1px solid #ffcc00;
-  }
+  #fps-counter { position: fixed; bottom: 8px; right: 10px; font-size: 11px; color: #00ff88; font-family: monospace; z-index: 999; background: rgba(0,0,0,0.55); padding: 2px 7px; border-radius: 4px; pointer-events: none; }
+  #sound-toggle-btn { position: fixed; top: 20px; right: 85px; width: 55px; height: 55px; background: rgba(0,0,0,0.7); border: 2px solid #ffcc00; border-radius: 50%; color: #ffcc00; font-size: 18px; font-weight: bold; cursor: pointer; z-index: 1000; display: none; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(255,204,0,0.4); }
+  #sound-panel { position: absolute; right: 10px; top: 90px; background: rgba(0,0,0,.92); padding: 14px; border-radius: 10px; width: 210px; z-index: 10; box-shadow: 0 0 12px rgba(255,204,0,0.3); display: none; border: 1px solid #ffcc00; }
   #sound-panel h4 { color: #ffcc00; font-size: 13px; margin: 0 0 10px 0; text-align: center; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 6px; }
   .sound-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 11px; color: #aaa; }
   .sound-row label { width: 52px; flex-shrink: 0; }
-  .sound-row input[type=range] {
-      flex: 1; -webkit-appearance: none; height: 4px; border-radius: 2px;
-      background: #333; outline: none; cursor: pointer;
-  }
-  .sound-row input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
-      background: #ffcc00; cursor: pointer; box-shadow: 0 0 4px #ffcc00;
-  }
-  .sound-row input[type=range]::-moz-range-thumb {
-      width: 14px; height: 14px; border-radius: 50%; background: #ffcc00; cursor: pointer; border: none;
-  }
+  .sound-row input[type=range] { flex: 1; -webkit-appearance: none; height: 4px; border-radius: 2px; background: #333; outline: none; cursor: pointer; }
+  .sound-row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #ffcc00; cursor: pointer; box-shadow: 0 0 4px #ffcc00; }
+  .sound-row input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #ffcc00; cursor: pointer; border: none; }
   .sound-val { width: 28px; text-align: right; color: #fff; font-size: 11px; }
-
-  #gameover { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,.9); padding: 30px; border-radius: 12px; display: none; font-size: 36px; text-align: center; z-index: 20; border: 2px solid red; box-shadow: 0 0 20px red; }
+  #damage-flash { position: fixed; inset: 0; background: rgba(255,0,0,0); pointer-events: none; z-index: 500; transition: background 0.1s; }
+  #nitro-vignette { position: fixed; inset: 0; pointer-events: none; z-index: 499; transition: background 0.15s; }
+  #speed-lines { position: fixed; inset: 0; pointer-events: none; z-index: 498; overflow: hidden; }
+  .speed-line { position: absolute; width: 2px; background: linear-gradient(to bottom, transparent, rgba(0,255,255,0.55), transparent); transform-origin: center top; animation: sline 0.25s linear infinite; opacity: 0; }
+  @keyframes sline { from { opacity: 0; transform: scaleY(0); } 50% { opacity: 1; } to { opacity: 0; transform: scaleY(1); } }
+  #near-miss-pop { position: absolute; top: 35%; left: 50%; transform: translateX(-50%); color: #ffff00; font-size: 28px; font-weight: 900; display: none; text-shadow: 0 0 15px #ffff00; z-index: 15; pointer-events: none; letter-spacing: 2px; }
+  #gameover { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,.92); padding: 30px; border-radius: 12px; display: none; font-size: 36px; text-align: center; z-index: 20; border: 2px solid red; box-shadow: 0 0 20px red; min-width: 280px; }
+  #go-stats { font-size: 16px; color: #aaa; margin: 10px 0; line-height: 1.8; }
   #reward-flash { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); color: #ff00ff; font-size: 40px; font-weight: bold; display: none; text-shadow: 0 0 15px #ff00ff; z-index: 15; pointer-events: none; }
-
   #mobile-controls { position: absolute; bottom: 20px; left: 10px; right: 10px; display: flex; justify-content: space-between; z-index: 100; pointer-events: none; }
   .control-group { pointer-events: auto; display: flex; gap: 10px; align-items: flex-end; }
-  .touch-btn { background: rgba(0, 0, 0, 0.5); border: 2px solid #00ffcc; box-shadow: 0 0 10px rgba(0, 255, 204, 0.4); color: white; font-size: 24px; border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; user-select: none; margin-top: 0; }
-  .touch-btn:active { background: rgba(0, 255, 204, 0.4); }
-  .nitro-btn { border-color: #ff6600; font-size: 28px; box-shadow: 0 0 10px rgba(255, 102, 0, 0.4); }
-  .nitro-btn:active { background: rgba(255, 102, 0, 0.4); }
+  .touch-btn { background: rgba(0,0,0,0.5); border: 2px solid #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.4); color: white; font-size: 24px; border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; user-select: none; margin-top: 0; }
+  .touch-btn:active { background: rgba(0,255,204,0.4); }
+  .nitro-btn { border-color: #ff6600; font-size: 28px; box-shadow: 0 0 10px rgba(255,102,0,0.4); }
+  .nitro-btn:active { background: rgba(255,102,0,0.4); }
   @media (min-width: 800px) { #mobile-controls { display: none !important; } }
 </style>
 </head>
 <body>
 
 <div id="start-menu">
-    <div class="title-neon">NEON RACING</div>
-    <div class="subtitle-neon">ULTIMATE ULTRA - THE HYPERCAR UPDATE</div>
-    <div class="menu-stats">🪙 <span id="menu-coins">0</span> &nbsp; | &nbsp; 🏆 Best: <span id="menu-best">0</span> m</div>
-    <button class="start-btn" onclick="startGame()">START GAME</button>
-    <div class="menu-grid">
-        <div class="menu-panel">
-            <h3>SHOP & UPGRADES</h3>
-            <div id="upgrades"></div>
-        </div>
-        <div class="menu-panel">
-            <div class="garage-header">
-                <button class="nav-arrow" onclick="switchCategory(-1)">◀</button>
-                <h3 id="garage-category-title">LAMBORGHINI</h3>
-                <button class="nav-arrow" onclick="switchCategory(1)">▶</button>
-            </div>
-            <div id="cars"></div>
-        </div>
+  <div class="title-neon">NEON RACING</div>
+  <div class="subtitle-neon">ULTIMATE ULTRA - THE HYPERCAR UPDATE</div>
+  <div class="menu-stats">🪙 <span id="menu-coins">0</span> &nbsp;|&nbsp; 🏆 Best: <span id="menu-best">0</span> m</div>
+  <button class="start-btn" onclick="startGame()">START GAME</button>
+  <div class="menu-grid">
+    <div class="menu-panel">
+      <h3>SHOP & UPGRADES</h3>
+      <div id="upgrades"></div>
     </div>
-    <button class="reset-btn" onclick="resetGame()">Reset Save Data</button>
+    <div class="menu-panel">
+      <div class="garage-header">
+        <button class="nav-arrow" onclick="switchCategory(-1)">◀</button>
+        <h3 id="garage-category-title">LAMBORGHINI</h3>
+        <button class="nav-arrow" onclick="switchCategory(1)">▶</button>
+      </div>
+      <div id="cars"></div>
+    </div>
+  </div>
+  <button class="reset-btn" onclick="resetGame()">Reset Save Data</button>
 </div>
 
 <button id="sound-toggle-btn" onclick="toggleSoundPanel()">🔊</button>
 <button id="pause-btn" onclick="togglePause()">II</button>
 
 <div id="pause-menu">
-    <div class="pause-card">
-        <h2 style="color:#ff00ff; text-shadow:0 0 15px #ff00ff; margin-bottom:20px;">PAUSED</h2>
-        <button class="pause-opt resume-btn" onclick="togglePause()">Resume</button>
-        <button class="pause-opt home-btn" onclick="goHome()">Home</button>
-    </div>
+  <div class="pause-card">
+    <h2 style="color:#ff00ff;text-shadow:0 0 15px #ff00ff;margin-bottom:20px;">PAUSED</h2>
+    <button class="pause-opt resume-btn" onclick="togglePause()">Resume</button>
+    <button class="pause-opt home-btn" onclick="goHome()">Home</button>
+  </div>
 </div>
 
 <div id="sound-panel">
-    <h4>🔊 SOUND CONTROLS</h4>
-    <div class="sound-row">
-        <label>Music</label>
-        <input type="range" id="vol-music" min="0" max="100" value="10" oninput="updateVolume('music', this.value)">
-        <span class="sound-val" id="val-music">10</span>
-    </div>
-    <div class="sound-row">
-        <label>Engine</label>
-        <input type="range" id="vol-engine" min="0" max="100" value="25" oninput="updateVolume('engine', this.value)">
-        <span class="sound-val" id="val-engine">25</span>
-    </div>
-    <div class="sound-row">
-        <label>Nitro</label>
-        <input type="range" id="vol-nitro" min="0" max="100" value="70" oninput="updateVolume('nitro', this.value)">
-        <span class="sound-val" id="val-nitro">70</span>
-    </div>
-    <div class="sound-row">
-        <label>Coins</label>
-        <input type="range" id="vol-coins" min="0" max="100" value="40" oninput="updateVolume('coins', this.value)">
-        <span class="sound-val" id="val-coins">40</span>
-    </div>
-    <div class="sound-row">
-        <label>Damage</label>
-        <input type="range" id="vol-damage" min="0" max="100" value="80" oninput="updateVolume('damage', this.value)">
-        <span class="sound-val" id="val-damage">80</span>
-    </div>
+  <h4>🔊 SOUND CONTROLS</h4>
+  <div class="sound-row"><label>Music</label><input type="range" id="vol-music" min="0" max="100" value="10" oninput="updateVolume('music',this.value)"><span class="sound-val" id="val-music">10</span></div>
+  <div class="sound-row"><label>Engine</label><input type="range" id="vol-engine" min="0" max="100" value="25" oninput="updateVolume('engine',this.value)"><span class="sound-val" id="val-engine">25</span></div>
+  <div class="sound-row"><label>Nitro</label><input type="range" id="vol-nitro" min="0" max="100" value="70" oninput="updateVolume('nitro',this.value)"><span class="sound-val" id="val-nitro">70</span></div>
+  <div class="sound-row"><label>Coins</label><input type="range" id="vol-coins" min="0" max="100" value="40" oninput="updateVolume('coins',this.value)"><span class="sound-val" id="val-coins">40</span></div>
+  <div class="sound-row"><label>Damage</label><input type="range" id="vol-damage" min="0" max="100" value="80" oninput="updateVolume('damage',this.value)"><span class="sound-val" id="val-damage">80</span></div>
 </div>
 
-<div id="reward-flash">REWARD +50🪙</div>
+<div id="damage-flash"></div>
+<div id="nitro-vignette"></div>
+<div id="speed-lines"></div>
+<div id="near-miss-pop">⚡ NEAR MISS +3🪙</div>
+<div id="reward-flash">MILESTONE +15🪙</div>
+<div id="fps-counter">60 FPS</div>
 
 <div id="ui">
   <div id="dist-ui">0 m</div>
@@ -214,9 +141,9 @@
   <div id="coins-container">🪙 <span id="coins">0</span></div>
   <div id="speedometer-ui"><span id="speed-val">0</span> <span style="font-size:14px">KM/H</span></div>
   <div class="label">Health</div>
-  <div class="bar"><div id="healthBar" class="fill" style="width: 100%;"></div></div>
+  <div class="bar"><div id="healthBar" class="fill" style="width:100%;background:#00ff66"></div></div>
   <div class="label">Nitro</div>
-  <div class="bar"><div id="nitroBar" class="fill" style="width: 100%;"></div></div>
+  <div class="bar"><div id="nitroBar" class="fill" style="width:100%;background:#00ffcc"></div></div>
   <div class="stats-text">
     <span id="engineStats"></span>
     <span id="magnetStats"></span>
@@ -227,538 +154,554 @@
 </div>
 
 <div id="mobile-controls">
-    <div class="control-group" id="dpad-left">
-        <button id="btn-left" class="touch-btn">◀</button>
-        <button id="btn-right" class="touch-btn">▶</button>
-    </div>
-    <div class="control-group" id="action-right">
-        <button id="btn-brake" class="touch-btn" style="border-color: #ff0033; box-shadow: 0 0 10px rgba(255, 0, 51, 0.4);">▼</button>
-        <button id="btn-accel" class="touch-btn">▲</button>
-        <button id="btn-nitro" class="touch-btn nitro-btn">🔥</button>
-    </div>
+  <div class="control-group">
+    <button id="btn-left" class="touch-btn">◀</button>
+    <button id="btn-right" class="touch-btn">▶</button>
+  </div>
+  <div class="control-group">
+    <button id="btn-brake" class="touch-btn" style="border-color:#ff0033;box-shadow:0 0 10px rgba(255,0,51,0.4)">▼</button>
+    <button id="btn-accel" class="touch-btn">▲</button>
+    <button id="btn-nitro" class="touch-btn nitro-btn">🔥</button>
+  </div>
 </div>
 
-<div id="gameover">CRASHED 💥<br><button onclick="location.reload()" style="background: #ff0055; font-size:20px; padding:15px; margin-top:20px; width:auto;">BACK TO MENU</button></div>
+<div id="gameover">
+  CRASHED 💥
+  <div id="go-stats"></div>
+  <button onclick="location.reload()" style="background:#ff0055;font-size:20px;padding:15px;margin-top:10px;width:auto">BACK TO MENU</button>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// Load Save Data
-let save = JSON.parse(localStorage.getItem("neonSaveLambos")) || {coins:0, unlocked:[0], selected:0, engineLevel:1, hasShield:false, highScore:0, magnetLevel:1};
-if (save.engineLevel === undefined) save.engineLevel = 1;
-if (save.hasShield === undefined) save.hasShield = false;
-if (save.highScore === undefined) save.highScore = 0;
-if (save.magnetLevel === undefined || save.magnetLevel < 1) save.magnetLevel = 1;
-
+// ── Save Data ──
+let save = JSON.parse(localStorage.getItem("neonSaveLambos")) || {coins:0,unlocked:[0],selected:0,engineLevel:1,hasShield:false,highScore:0,magnetLevel:1};
+if(!save.engineLevel) save.engineLevel=1;
+if(!save.hasShield) save.hasShield=false;
+if(!save.highScore) save.highScore=0;
+if(!save.magnetLevel||save.magnetLevel<1) save.magnetLevel=1;
 const saveGame = () => localStorage.setItem("neonSaveLambos", JSON.stringify(save));
 
-// Define Car Types
+// ── Car Models ──
 const carModels = [
-  { type: "lambo", color: 0x00ffcc, name: "Cyan Lambo" },
-  { type: "lambo", color: 0xff0033, name: "Red Lambo" },
-  { type: "lambo", color: 0xffcc00, name: "Gold Lambo" },
-  { type: "lambo", color: 0x00ff00, name: "Neon Green Lambo" },
-  { type: "lambo", color: 0x9900ff, name: "Purple Lambo" },
-  { type: "ferrari", color: 0xdd0000, name: "Rosso Red Ferrari" },
-  { type: "ferrari", color: 0xffaa00, name: "Scuderia Yellow Ferrari" },
-  { type: "ferrari", color: 0x0066ff, name: "Electric Blue Ferrari" },
-  { type: "ferrari", color: 0x39ff14, name: "Poison Green Ferrari" },
-  { type: "ferrari", color: 0xbf00ff, name: "Vibrant Purple Ferrari" },
-  { type: "ferrari", color: 0xf0f0f0, name: "Arctic Silver Ferrari" },
-  { type: "bugatti", color: 0x0044ff, name: "Chiron Blue Bugatti" },
-  { type: "bugatti", color: 0x111111, name: "Phantom Black Bugatti" },
-  { type: "bugatti", color: 0xffffff, name: "Ice White Bugatti" },
-  { type: "bmw", color: 0xffffff, name: "M3 Alpine White BMW" },
-  { type: "bmw", color: 0x0022ff, name: "M4 San Marino BMW" },
-  { type: "bmw", color: 0x222222, name: "M5 Stealth Black BMW" }
+  {type:"lambo",color:0x00ffcc,name:"Cyan Lambo"},{type:"lambo",color:0xff0033,name:"Red Lambo"},
+  {type:"lambo",color:0xffcc00,name:"Gold Lambo"},{type:"lambo",color:0x00ff00,name:"Neon Green Lambo"},
+  {type:"lambo",color:0x9900ff,name:"Purple Lambo"},
+  {type:"ferrari",color:0xdd0000,name:"Rosso Ferrari"},{type:"ferrari",color:0xffaa00,name:"Scuderia Ferrari"},
+  {type:"ferrari",color:0x0066ff,name:"Electric Ferrari"},{type:"ferrari",color:0x39ff14,name:"Poison Ferrari"},
+  {type:"ferrari",color:0xbf00ff,name:"Purple Ferrari"},{type:"ferrari",color:0xf0f0f0,name:"Silver Ferrari"},
+  {type:"bugatti",color:0x0044ff,name:"Chiron Bugatti"},{type:"bugatti",color:0x111111,name:"Black Bugatti"},
+  {type:"bugatti",color:0xffffff,name:"White Bugatti"},
+  {type:"bmw",color:0xffffff,name:"Alpine White BMW"},{type:"bmw",color:0x0022ff,name:"San Marino BMW"},
+  {type:"bmw",color:0x222222,name:"Stealth Black BMW"}
 ];
+if(!carModels[save.selected]) save.selected=0;
 
-if(!carModels[save.selected]) save.selected = 0;
+const garageCategories=["lambo","ferrari","bugatti","bmw"];
+const garageCategoryTitles=["LAMBORGHINI","FERRARI","BUGATTI","BMW"];
+let currentCategoryIndex=0;
+window.switchCategory=(dir)=>{currentCategoryIndex=(currentCategoryIndex+dir+4)%4; renderMenu();};
 
-const garageCategories = ["lambo", "ferrari", "bugatti", "bmw"];
-const garageCategoryTitles = ["LAMBORGHINI", "FERRARI", "BUGATTI", "BMW"];
-let currentCategoryIndex = 0;
+// ── Game State ──
+let gameStarted=false, gameOver=false, isPaused=false, soundPanelOpen=false;
+let coinScore=save.coins, distanceTraveled=0, lastMilestone=0, magnetTimeLeft=0;
+let speed=0, steer=0, health=100, nitro=100;
+const CAM_HEIGHT=7, CAM_DIST=12, CAM_LERP=0.08;
 
-window.switchCategory = (direction) => {
-    currentCategoryIndex += direction;
-    if (currentCategoryIndex < 0) currentCategoryIndex = garageCategories.length - 1;
-    if (currentCategoryIndex >= garageCategories.length) currentCategoryIndex = 0;
-    renderMenu();
-};
+// ── FPS Tracking ──
+let fpsFrames=0, fpsLast=performance.now();
+let domFrame=0;
+const DOM_THROTTLE=3;
 
-// Game State
-let gameStarted = false, gameOver = false, isPaused = false, soundPanelOpen = false;
-let coinScore = save.coins, distanceTraveled = 0, lastMilestone = 0, magnetTimeLeft = 0;
-let speed = 0, steer = 0, health = 100, nitro = 100;
-
-// Camera follow settings
-const CAM_HEIGHT = 7, CAM_DIST = 12, CAM_LERP = 0.08;
-
-// Audio
-const engineSnd = new Audio("car_engine.mp3");
-const music = new Audio("car_back.mp3");
-engineSnd.loop = music.loop = true;
-engineSnd.volume = 0.25; music.volume = 0.1;
-
-const coinSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3");
-coinSnd.volume = 0.4;
-const playCoinSound = () => { let c = coinSnd.cloneNode(); c.volume = coinSnd.volume; c.play().catch(()=>{}); };
-
-const magnetSnd = new Audio("car_magnet.mpeg");
-magnetSnd.volume = 0.8;
-
-const nitroSnd = new Audio("https://assets.mixkit.co/active_storage/sfx/1654/1654-preview.mp3");
-nitroSnd.volume = 0.7; nitroSnd.loop = true;
-
-const damageSnd = new Audio("car_damage.mpeg");
-damageSnd.volume = 0.8;
-
-const gameOverSnd = new Audio("car_over.mpeg");
-gameOverSnd.volume = 1.0;
-
-let audioStarted = false, isBoosting = false;
-
-window.updateVolume = (type, val) => {
-    const v = parseInt(val) / 100;
-    document.getElementById('val-' + type).innerText = val;
-    if (type === 'music') music.volume = v;
-    else if (type === 'engine') engineSnd.volume = v;
-    else if (type === 'nitro') nitroSnd.volume = v;
-    else if (type === 'coins') coinSnd.volume = v;
-    else if (type === 'damage') damageSnd.volume = v;
-};
-
-window.toggleSoundPanel = () => {
-    soundPanelOpen = !soundPanelOpen;
-    document.getElementById('sound-panel').style.display = soundPanelOpen ? 'block' : 'none';
-};
-
-function startAudio() {
-    if(!audioStarted){ music.play().catch(()=>{}); audioStarted = true; }
+// ── Speed lines ──
+const slinesEl=document.getElementById('speed-lines');
+for(let i=0;i<20;i++){
+  const sl=document.createElement('div'); sl.className='speed-line';
+  sl.style.left=Math.random()*100+'%'; sl.style.top=Math.random()*100+'%';
+  sl.style.height=(Math.random()*120+60)+'px';
+  sl.style.animationDelay=(Math.random()*0.25)+'s';
+  slinesEl.appendChild(sl);
 }
+const slineEls=[...slinesEl.children];
 
-function startGame() {
-    document.getElementById('start-menu').style.display = 'none';
-    document.body.classList.add('in-game');
-    document.getElementById('pause-btn').style.display = 'flex';
-    document.getElementById('sound-toggle-btn').style.display = 'flex';
-    gameStarted = true; isPaused = false;
-    startAudio();
-    updateShieldButtonUI();
-}
+// ── Audio ──
+const engineSnd=new Audio("car_engine.mp3"); engineSnd.loop=true; engineSnd.volume=0.25;
+const music=new Audio("car_back.mp3"); music.loop=true; music.volume=0.1;
+const coinSnd=new Audio("https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"); coinSnd.volume=0.4;
+const playCoinSound=()=>{const c=coinSnd.cloneNode(); c.volume=coinSnd.volume; c.play().catch(()=>{});};
+const magnetSnd=new Audio("car_magnet.mpeg"); magnetSnd.volume=0.8;
+const nitroSnd=new Audio("https://assets.mixkit.co/active_storage/sfx/1654/1654-preview.mp3"); nitroSnd.volume=0.7; nitroSnd.loop=true;
+const damageSnd=new Audio("car_damage.mpeg"); damageSnd.volume=0.8;
+const gameOverSnd=new Audio("car_over.mpeg"); gameOverSnd.volume=1.0;
+let audioStarted=false, isBoosting=false;
 
-window.togglePause = () => {
-    if(!gameStarted || gameOver) return;
-    isPaused = !isPaused;
-    document.getElementById('pause-menu').style.display = isPaused ? 'flex' : 'none';
-    if(isPaused) {
-        if(!music.paused) music.pause();
-        if(!engineSnd.paused) engineSnd.pause();
-        if(!nitroSnd.paused) nitroSnd.pause();
-    } else {
-        if(audioStarted) music.play().catch(()=>{});
-    }
+window.updateVolume=(type,val)=>{
+  const v=parseInt(val)/100;
+  document.getElementById('val-'+type).innerText=val;
+  if(type==='music') music.volume=v;
+  else if(type==='engine') engineSnd.volume=v;
+  else if(type==='nitro') nitroSnd.volume=v;
+  else if(type==='coins') coinSnd.volume=v;
+  else if(type==='damage') damageSnd.volume=v;
 };
+window.toggleSoundPanel=()=>{soundPanelOpen=!soundPanelOpen; document.getElementById('sound-panel').style.display=soundPanelOpen?'block':'none';};
 
-window.goHome = () => { location.reload(); };
-
-// Scene Setup
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000010);
-scene.fog = new THREE.Fog(0x000010, 50, 400);
-
-const starGeo = new THREE.BufferGeometry();
-const starCount = 1000;
-const positions = new Float32Array(starCount * 3);
-for(let i=0; i<starCount; i++){
-  positions[i*3] = Math.random()*200-100;
-  positions[i*3+1] = Math.random()*100+20;
-  positions[i*3+2] = Math.random()*-500;
+const damageFlashEl=document.getElementById('damage-flash');
+function triggerDamageFlash(){
+  damageFlashEl.style.background='rgba(255,0,0,0.45)';
+  setTimeout(()=>{damageFlashEl.style.background='rgba(255,0,0,0)';},150);
 }
-starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({color:0xffffff, size:0.7})));
+function startAudio(){if(!audioStarted){music.play().catch(()=>{}); audioStarted=true;}}
 
-const solidFloor = new THREE.Mesh(
-    new THREE.PlaneGeometry(2000, 4000),
-    new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9, metalness: 0.1 })
-);
-solidFloor.rotation.x = -Math.PI/2;
-solidFloor.position.y = -0.1;
-scene.add(solidFloor);
+function startGame(){
+  document.getElementById('start-menu').style.display='none';
+  document.body.classList.add('in-game');
+  document.getElementById('pause-btn').style.display='flex';
+  document.getElementById('sound-toggle-btn').style.display='flex';
+  gameStarted=true; isPaused=false; startAudio(); updateShieldButtonUI();
+}
+window.togglePause=()=>{
+  if(!gameStarted||gameOver) return;
+  isPaused=!isPaused;
+  document.getElementById('pause-menu').style.display=isPaused?'flex':'none';
+  if(isPaused){music.pause(); engineSnd.pause(); nitroSnd.pause();}
+  else if(audioStarted) music.play().catch(()=>{});
+};
+window.goHome=()=>location.reload();
 
-const camera = new THREE.PerspectiveCamera(70, innerWidth/innerHeight, .1, 2000);
-camera.position.set(0, CAM_HEIGHT, CAM_DIST);
+// ── Three.js Scene ──
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x000010);
+scene.fog=new THREE.Fog(0x000010,60,350);
 
-const camTarget = new THREE.Vector3(0, CAM_HEIGHT, CAM_DIST);
-const camLookTarget = new THREE.Vector3(0, 1, -5);
+const starGeo=new THREE.BufferGeometry();
+const starPos=new Float32Array(600*3);
+for(let i=0;i<600;i++){starPos[i*3]=Math.random()*200-100; starPos[i*3+1]=Math.random()*100+20; starPos[i*3+2]=Math.random()*-500;}
+starGeo.setAttribute('position',new THREE.BufferAttribute(starPos,3));
+scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xffffff,size:0.8})));
 
-const renderer = new THREE.WebGLRenderer({antialias:false});
-renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const solidFloor=new THREE.Mesh(new THREE.PlaneGeometry(2000,4000),new THREE.MeshBasicMaterial({color:0x444444}));
+solidFloor.rotation.x=-Math.PI/2; solidFloor.position.y=-0.1; scene.add(solidFloor);
+
+const isMobile=/Mobi|Android/i.test(navigator.userAgent);
+const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.5,600);
+camera.position.set(0,CAM_HEIGHT,CAM_DIST);
+const camTarget=new THREE.Vector3(0,CAM_HEIGHT,CAM_DIST);
+const camLookTarget=new THREE.Vector3(0,1,-5);
+
+const renderer=new THREE.WebGLRenderer({antialias:!isMobile,powerPreference:"high-performance"});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(isMobile?1:Math.min(devicePixelRatio,1.5));
 document.body.appendChild(renderer.domElement);
 
-scene.add(new THREE.AmbientLight(0xffffff, .6));
-const light = new THREE.PointLight(0x00ffff, 2, 50);
-light.position.set(0, 10, 10);
-scene.add(light);
+scene.add(new THREE.AmbientLight(0xffffff,0.7));
+const carLight=new THREE.PointLight(0x00ffff,1.5,30);
+scene.add(carLight);
 
-const road = new THREE.Mesh(
-    new THREE.PlaneGeometry(20, 4000),
-    new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0.9, roughness: 0.2})
-);
-road.rotation.x = -Math.PI/2;
-scene.add(road);
+const road=new THREE.Mesh(new THREE.PlaneGeometry(20,4000),new THREE.MeshBasicMaterial({color:0x050505}));
+road.rotation.x=-Math.PI/2; scene.add(road);
 
-const railGeo = new THREE.BoxGeometry(0.2, 0.5, 10);
-const railMat = new THREE.MeshBasicMaterial({color:0x00ffff});
-const rails = [];
-for(let i=0; i<100; i++){
-  const r1 = new THREE.Mesh(railGeo, railMat);
-  const r2 = new THREE.Mesh(railGeo, railMat);
-  r1.position.set(-10, 0.25, -i*40);
-  r2.position.set(10, 0.25, -i*40);
-  scene.add(r1); scene.add(r2);
-  rails.push(r1, r2);
+const railGeo=new THREE.BoxGeometry(0.2,0.5,10);
+const railMat=new THREE.MeshBasicMaterial({color:0x00ffff});
+const rails=[];
+for(let i=0;i<40;i++){
+  const r1=new THREE.Mesh(railGeo,railMat), r2=new THREE.Mesh(railGeo,railMat);
+  r1.position.set(-10,0.25,-i*40); r2.position.set(10,0.25,-i*40);
+  scene.add(r1,r2); rails.push(r1,r2);
 }
 
-const lineGeo = new THREE.BoxGeometry(.25, .1, 12);
-const lineMat = new THREE.MeshBasicMaterial({color:0x00ffff});
-const lines = [];
-for(let i=0; i<80; i++){
-  const l = new THREE.Mesh(lineGeo, lineMat);
-  l.position.set(0, .1, -i*40);
-  scene.add(l); lines.push(l);
+const lineGeo=new THREE.BoxGeometry(0.25,0.1,12);
+const lineMat=new THREE.MeshBasicMaterial({color:0x00ffff});
+const lines=[];
+for(let i=0;i<30;i++){
+  const l=new THREE.Mesh(lineGeo,lineMat);
+  l.position.set(0,0.1,-i*40); scene.add(l); lines.push(l);
 }
 
-const buildings = [];
-const neonColors = [0x00ffff, 0xff00ff, 0x00ffcc, 0xff3366, 0xffff00];
-const buildingMats = neonColors.map(color => new THREE.MeshStandardMaterial({
-    color: 0x050510, metalness: 0.8, roughness: 0.2, emissive: color, emissiveIntensity: 0.1
-}));
-const edgeMats = neonColors.map(color => new THREE.LineBasicMaterial({ color: color, transparent: true, opacity: 0.6 }));
-
-for(let i=0; i<150; i++){
-  const width = Math.random()*20+10, height = Math.random()*120+30, depth = Math.random()*20+10;
-  const geo = new THREE.BoxGeometry(width, height, depth);
-  const colorIndex = Math.floor(Math.random()*neonColors.length);
-  const b = new THREE.Mesh(geo, buildingMats[colorIndex]);
-  const isLeft = Math.random() > 0.5;
-  b.position.x = isLeft ? -(Math.random()*300+20) : (Math.random()*300+20);
-  b.position.y = height/2;
-  b.position.z = -Math.random()*4000;
-  b.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMats[colorIndex]));
+const buildings=[];
+const neonColors=[0x00ffff,0xff00ff,0x00ffcc,0xff3366,0xffff00];
+const buildingMats=neonColors.map(c=>new THREE.MeshStandardMaterial({color:0x060618,emissive:c,emissiveIntensity:0.15,metalness:0.7,roughness:0.3}));
+const edgeMats=neonColors.map(c=>new THREE.LineBasicMaterial({color:c,transparent:true,opacity:0.7}));
+for(let i=0;i<70;i++){
+  const w=Math.random()*20+10,h=Math.random()*120+30,dep=Math.random()*20+10;
+  const geo=new THREE.BoxGeometry(w,h,dep); const ci=Math.floor(Math.random()*5);
+  const b=new THREE.Mesh(geo,buildingMats[ci]);
+  b.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),edgeMats[ci]));
+  const left=Math.random()>0.5;
+  b.position.set(left?-(Math.random()*200+18):Math.random()*200+18,h/2,-Math.random()*3000);
   scene.add(b); buildings.push(b);
 }
 
+// ── Car Builder ──
 let car, flame, shieldMesh;
 function buildCar(){
   if(car) scene.remove(car);
-  car = new THREE.Group();
-  const modelData = carModels[save.selected];
-  const baseColor = modelData.color;
-  const bodyMat = new THREE.MeshStandardMaterial({color:baseColor, metalness:0.8, roughness:0.2, emissive:baseColor, emissiveIntensity:0.1});
-  const darkMat = new THREE.MeshStandardMaterial({color:0x111111, metalness:0.9, roughness:0.1});
-  const glowMat = new THREE.MeshBasicMaterial({color:0xffffff});
+  car=new THREE.Group();
+  const md=carModels[save.selected];
+  const bodyMat=new THREE.MeshStandardMaterial({color:md.color,metalness:0.9,roughness:0.15,emissive:md.color,emissiveIntensity:0.14});
+  const darkMat=new THREE.MeshStandardMaterial({color:0x0a0a0a,metalness:0.95,roughness:0.05});
+  const chromeMat=new THREE.MeshStandardMaterial({color:0xcccccc,metalness:1.0,roughness:0.05});
+  const glowMat=new THREE.MeshBasicMaterial({color:0xffffff});
+  const redMat=new THREE.MeshBasicMaterial({color:0xff2200});
+  const wheelGeo=new THREE.CylinderGeometry(0.52,0.52,0.78,12);
+  const wheelMat=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.9});
+  const rimMat=new THREE.MeshStandardMaterial({color:0xaaaaaa,metalness:1.0,roughness:0.1});
+  const addWheel=(x,z)=>{
+    const w=new THREE.Mesh(wheelGeo,wheelMat); w.rotation.z=Math.PI/2; w.position.set(x,0.62,z);
+    const rim=new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.32,0.82,6),rimMat); rim.rotation.z=Math.PI/2; rim.position.set(x,0.62,z);
+    car.add(w,rim);
+  };
 
-  const base = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.4, 4.8), bodyMat);
-  base.position.y = 0.9;
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.5, 2.0), darkMat);
-  cabin.position.set(0, 1.3, -0.2);
-  const hood = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.2, 1.5), bodyMat);
-  hood.position.set(0, 1.0, 1.8); hood.rotation.x = Math.PI/16;
-  const spoiler = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.1, 0.6), bodyMat);
-  spoiler.position.set(0, 1.5, -2.2);
-  const strut1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.4, 0.1), darkMat);
-  strut1.position.set(-0.8, 1.3, -2.2);
-  const strut2 = strut1.clone(); strut2.position.set(0.8, 1.3, -2.2);
-  const hl1 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.1, 0.1), glowMat);
-  hl1.position.set(-0.8, 1.1, 2.4); hl1.rotation.y = -Math.PI/8;
-  const hl2 = hl1.clone(); hl2.position.set(0.8, 1.1, 2.4); hl2.rotation.y = Math.PI/8;
+  if(md.type==="lambo"){
+    const body=new THREE.Mesh(new THREE.BoxGeometry(3.0,0.28,5.2),bodyMat); body.position.set(0,0.78,0);
+    const skirtL=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.22,4.8),bodyMat); skirtL.position.set(-1.55,0.55,0);
+    const skirtR=skirtL.clone(); skirtR.position.x=1.55;
+    const nose=new THREE.Mesh(new THREE.BoxGeometry(2.6,0.18,1.2),bodyMat); nose.position.set(0,0.70,2.8); nose.rotation.x=-0.18;
+    const cabin=new THREE.Mesh(new THREE.BoxGeometry(1.7,0.38,1.7),darkMat); cabin.position.set(0,1.1,0.1);
+    const haunchL=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.45,2.2),bodyMat); haunchL.position.set(-1.65,0.72,-0.9);
+    const haunchR=haunchL.clone(); haunchR.position.x=1.65;
+    const wing=new THREE.Mesh(new THREE.BoxGeometry(3.4,0.08,0.8),bodyMat); wing.position.set(0,1.82,-2.5);
+    const strutL=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.6,0.1),chromeMat); strutL.position.set(-1.1,1.5,-2.5);
+    const strutR=strutL.clone(); strutR.position.x=1.1;
+    for(let v=0;v<3;v++){const vt=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.12,0.5),darkMat); vt.position.set(-1.52,0.85,-0.2+v*0.35); const vr=vt.clone(); vr.position.x=1.52; car.add(vt,vr);}
+    const splitter=new THREE.Mesh(new THREE.BoxGeometry(2.8,0.06,0.6),darkMat); splitter.position.set(0,0.44,3.0);
+    const hl1=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.07,0.1),glowMat); hl1.position.set(-0.85,0.82,2.95); hl1.rotation.y=-0.2;
+    const hl2=hl1.clone(); hl2.position.x=0.85; hl2.rotation.y=0.2;
+    const diff=new THREE.Mesh(new THREE.BoxGeometry(2.6,0.12,0.5),darkMat); diff.position.set(0,0.44,-2.8);
+    const tl1=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.06,0.08),redMat); tl1.position.set(-0.9,0.82,-2.68);
+    const tl2=tl1.clone(); tl2.position.x=0.9;
+    car.add(body,skirtL,skirtR,nose,cabin,haunchL,haunchR,wing,strutL,strutR,splitter,hl1,hl2,diff,tl1,tl2);
+    addWheel(-1.42,1.7); addWheel(1.42,1.7); addWheel(-1.42,-1.7); addWheel(1.42,-1.7);
+    flame=new THREE.Mesh(new THREE.ConeGeometry(0.45,1.4,6),new THREE.MeshBasicMaterial({color:0x00ffcc,transparent:true,opacity:0.85}));
+    flame.position.set(0,0.78,-3.0); flame.rotation.x=Math.PI; flame.visible=false; car.add(flame);
 
-  if (modelData.type === "ferrari") {
-      spoiler.scale.set(0.8, 1, 0.4); spoiler.position.set(0, 1.3, -2.3);
-      strut1.position.set(-0.6, 1.2, -2.3); strut2.position.set(0.6, 1.2, -2.3);
-      cabin.position.z += 0.3; cabin.scale.set(1, 0.8, 1.1);
-  } else if (modelData.type === "bugatti") {
-      base.scale.set(1.15, 1.2, 1.1); cabin.scale.set(1.1, 1.1, 1.2);
-      cabin.position.z -= 0.1; spoiler.visible = false; strut1.visible = false; strut2.visible = false;
-      hood.scale.set(1.1, 1, 0.8); hood.position.y -= 0.1;
-  } else if (modelData.type === "bmw") {
-      base.scale.set(0.9, 1.2, 1.0); cabin.scale.set(0.95, 1.2, 1.2);
-      cabin.position.y += 0.2; cabin.position.z -= 0.1;
-      spoiler.scale.set(0.9, 0.5, 0.5); spoiler.position.y -= 0.2; hood.scale.set(0.95, 1, 1);
+  } else if(md.type==="ferrari"){
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.7,0.35,5.6),bodyMat); body.position.set(0,0.82,-0.1);
+    const hood=new THREE.Mesh(new THREE.BoxGeometry(2.5,0.22,2.0),bodyMat); hood.position.set(0,0.86,2.0); hood.rotation.x=-0.08;
+    const cabin=new THREE.Mesh(new THREE.BoxGeometry(1.6,0.62,1.8),darkMat); cabin.position.set(0,1.35,0.2);
+    const rearSlope=new THREE.Mesh(new THREE.BoxGeometry(1.6,0.35,0.9),darkMat); rearSlope.position.set(0,1.15,-1.05); rearSlope.rotation.x=0.3;
+    for(let s=0;s<5;s++){const st=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.1,1.0),chromeMat); st.position.set(-1.38,0.72+s*0.08,-0.5); const sr=st.clone(); sr.position.x=1.38; car.add(st,sr);}
+    const spoiler=new THREE.Mesh(new THREE.BoxGeometry(2.4,0.07,0.45),bodyMat); spoiler.position.set(0,1.1,-2.7);
+    const hlGeo=new THREE.CylinderGeometry(0.22,0.22,0.1,12);
+    const hl1=new THREE.Mesh(hlGeo,glowMat); hl1.rotation.x=Math.PI/2; hl1.position.set(-0.72,0.95,2.85);
+    const hl2=hl1.clone(); hl2.position.x=0.72;
+    const exh1=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.3,8),chromeMat); exh1.rotation.x=Math.PI/2; exh1.position.set(-0.5,0.62,-2.92);
+    const exh2=exh1.clone(); exh2.position.x=0.5;
+    const splitter=new THREE.Mesh(new THREE.BoxGeometry(2.5,0.07,0.5),darkMat); splitter.position.set(0,0.47,3.05);
+    const tl1=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.18,0.08),redMat); tl1.position.set(-0.85,0.88,-2.85);
+    const tl2=tl1.clone(); tl2.position.x=0.85;
+    car.add(body,hood,cabin,rearSlope,spoiler,hl1,hl2,exh1,exh2,splitter,tl1,tl2);
+    addWheel(-1.32,1.8); addWheel(1.32,1.8); addWheel(-1.32,-1.6); addWheel(1.32,-1.6);
+    flame=new THREE.Mesh(new THREE.ConeGeometry(0.35,1.2,6),new THREE.MeshBasicMaterial({color:0xff6600,transparent:true,opacity:0.85}));
+    flame.position.set(0,0.8,-3.05); flame.rotation.x=Math.PI; flame.visible=false; car.add(flame);
+
+  } else if(md.type==="bugatti"){
+    const body=new THREE.Mesh(new THREE.BoxGeometry(3.3,0.45,5.0),bodyMat); body.position.set(0,0.88,0);
+    const fFL=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.55,1.4),bodyMat); fFL.position.set(-1.82,0.72,1.5);
+    const fFR=fFL.clone(); fFR.position.x=1.82;
+    const fRL=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.55,1.6),bodyMat); fRL.position.set(-1.82,0.72,-1.3);
+    const fRR=fRL.clone(); fRR.position.x=1.82;
+    const grilleMid=new THREE.Mesh(new THREE.BoxGeometry(1.4,0.5,0.18),darkMat); grilleMid.position.set(0,0.82,2.65);
+    const grilleL=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.5,0.45),darkMat); grilleL.position.set(-0.78,0.82,2.48);
+    const grilleR=grilleL.clone(); grilleR.position.x=0.78;
+    const grilleSurround=new THREE.Mesh(new THREE.BoxGeometry(1.55,0.55,0.12),chromeMat); grilleSurround.position.set(0,0.82,2.72);
+    const cabin=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.65,1.9),darkMat); cabin.position.set(0,1.42,0);
+    const roofF=new THREE.Mesh(new THREE.BoxGeometry(1.95,0.38,0.7),darkMat); roofF.position.set(0,1.28,1.15); roofF.rotation.x=-0.25;
+    const roofR=new THREE.Mesh(new THREE.BoxGeometry(1.95,0.38,0.7),darkMat); roofR.position.set(0,1.28,-1.15); roofR.rotation.x=0.25;
+    const hl1=new THREE.Mesh(new THREE.BoxGeometry(0.75,0.12,0.1),glowMat); hl1.position.set(-0.88,1.0,2.78);
+    const hl2=hl1.clone(); hl2.position.x=0.88;
+    const tlGeo=new THREE.CylinderGeometry(0.18,0.18,0.1,10);
+    const tl1=new THREE.Mesh(tlGeo,redMat); tl1.rotation.x=Math.PI/2; tl1.position.set(-1.0,0.95,-2.58);
+    const tl2=tl1.clone(); tl2.position.x=1.0;
+    const diff=new THREE.Mesh(new THREE.BoxGeometry(3.0,0.14,0.7),darkMat); diff.position.set(0,0.46,-2.72);
+    car.add(body,fFL,fFR,fRL,fRR,grilleMid,grilleL,grilleR,grilleSurround,cabin,roofF,roofR,hl1,hl2,tl1,tl2,diff);
+    addWheel(-1.75,1.6); addWheel(1.75,1.6); addWheel(-1.75,-1.6); addWheel(1.75,-1.6);
+    flame=new THREE.Mesh(new THREE.ConeGeometry(0.5,1.5,6),new THREE.MeshBasicMaterial({color:0x4488ff,transparent:true,opacity:0.85}));
+    flame.position.set(0,0.88,-2.7); flame.rotation.x=Math.PI; flame.visible=false; car.add(flame);
+
+  } else {
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.5,0.5,5.0),bodyMat); body.position.set(0,0.92,0);
+    const cabin=new THREE.Mesh(new THREE.BoxGeometry(1.85,0.78,2.2),darkMat); cabin.position.set(0,1.6,-0.05);
+    const trunk=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.35,0.9),bodyMat); trunk.position.set(0,1.12,-2.35); trunk.rotation.x=0.22;
+    const kidneyL=new THREE.Mesh(new THREE.BoxGeometry(0.55,0.38,0.14),darkMat); kidneyL.position.set(-0.35,1.0,2.58);
+    const kidneyR=kidneyL.clone(); kidneyR.position.x=0.35;
+    const kSL=new THREE.Mesh(new THREE.BoxGeometry(0.62,0.44,0.12),chromeMat); kSL.position.set(-0.35,1.0,2.63);
+    const kSR=kSL.clone(); kSR.position.x=0.35;
+    const intake=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.25,0.14),darkMat); intake.position.set(0,0.65,2.62);
+    const bumper=new THREE.Mesh(new THREE.BoxGeometry(2.55,0.38,0.22),bodyMat); bumper.position.set(0,0.7,2.65);
+    const hlGeo=new THREE.TorusGeometry(0.2,0.04,8,12);
+    const hl1=new THREE.Mesh(hlGeo,glowMat); hl1.position.set(-0.8,1.05,2.6);
+    const hl2=hl1.clone(); hl2.position.x=0.8;
+    const skirtL=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.2,4.2),darkMat); skirtL.position.set(-1.28,0.56,-0.1);
+    const skirtR=skirtL.clone(); skirtR.position.x=1.28;
+    const bootSpoiler=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.08,0.35),bodyMat); bootSpoiler.position.set(0,1.35,-2.7);
+    const exh1=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,0.3,8),chromeMat); exh1.rotation.x=Math.PI/2; exh1.position.set(-0.55,0.6,-2.65);
+    const exh2=exh1.clone(); exh2.position.x=0.55;
+    const tl1=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.12,0.08),redMat); tl1.position.set(-0.7,1.05,-2.58);
+    const tl2=tl1.clone(); tl2.position.x=0.7;
+    car.add(body,cabin,trunk,kidneyL,kidneyR,kSL,kSR,intake,bumper,hl1,hl2,skirtL,skirtR,bootSpoiler,exh1,exh2,tl1,tl2);
+    addWheel(-1.28,1.65); addWheel(1.28,1.65); addWheel(-1.28,-1.65); addWheel(1.28,-1.65);
+    flame=new THREE.Mesh(new THREE.ConeGeometry(0.35,1.1,6),new THREE.MeshBasicMaterial({color:0x88aaff,transparent:true,opacity:0.85}));
+    flame.position.set(0,0.82,-2.75); flame.rotation.x=Math.PI; flame.visible=false; car.add(flame);
   }
 
-  car.add(base, cabin, hood, spoiler, strut1, strut2, hl1, hl2);
-
-  shieldMesh = new THREE.Mesh(new THREE.SphereGeometry(3.5, 16, 16), new THREE.MeshBasicMaterial({color:0x00ffff, wireframe:true, transparent:true, opacity:0.3}));
-  shieldMesh.position.y = 1.2; shieldMesh.visible = save.hasShield;
-  car.add(shieldMesh);
-
-  const wheelGeo = new THREE.CylinderGeometry(.5, .5, .8, 18);
-  const wheelMat = new THREE.MeshStandardMaterial({color:0x111111, roughness:0.9});
-  const addWheel = (x, z) => { const w = new THREE.Mesh(wheelGeo, wheelMat); w.rotation.z = Math.PI/2; w.position.set(x, .7, z); car.add(w); };
-  addWheel(-1.3, 1.5); addWheel(1.3, 1.5); addWheel(-1.3, -1.5); addWheel(1.3, -1.5);
-
-  flame = new THREE.Mesh(new THREE.ConeGeometry(.5, 1.5, 8), new THREE.MeshBasicMaterial({color:0x00ffff, transparent:true, opacity:0.8}));
-  flame.position.set(0, 1, -2.5); flame.rotation.x = Math.PI; flame.visible = false;
-  car.add(flame);
-
-  car.rotation.y = Math.PI;
-  scene.add(car);
+  shieldMesh=new THREE.Mesh(new THREE.SphereGeometry(3.8,12,10),new THREE.MeshBasicMaterial({color:0x00ffff,wireframe:true,transparent:true,opacity:0.3}));
+  shieldMesh.position.y=1.2; shieldMesh.visible=save.hasShield; car.add(shieldMesh);
+  car.rotation.y=Math.PI; scene.add(car);
 }
 buildCar();
 
+// ── Menu ──
 function renderMenu(){
-  const upgDiv = document.getElementById("upgrades");
-  const engCost = save.engineLevel * 50, magCost = save.magnetLevel * 150;
-  upgDiv.innerHTML = `
-    <div style="font-size:14px;margin-bottom:10px;color:#bbb;">Engine Lvl: <span style="color:#fff">${save.engineLevel}</span> | Magnet Lvl: <span style="color:#fff">${save.magnetLevel}</span></div>
-    <button class="buy-btn" onclick="upgradeEngine()">Upgrade Engine (${engCost}🪙)</button>
-    <button class="magnet-btn" onclick="upgradeMagnet()">Upgrade Magnet (${magCost}🪙)</button>
-  `;
-  document.getElementById("garage-category-title").innerText = garageCategoryTitles[currentCategoryIndex];
-  const div = document.getElementById("cars"); div.innerHTML = "";
-  const activeCategory = garageCategories[currentCategoryIndex];
-  carModels.forEach((c, i) => {
-    if(c.type !== activeCategory) return;
-    const btn = document.createElement("button");
+  const engCost=save.engineLevel*50, magCost=save.magnetLevel*150;
+  document.getElementById("upgrades").innerHTML=`
+    <div style="font-size:14px;margin-bottom:10px;color:#bbb">Engine Lvl: <b style="color:#fff">${save.engineLevel}</b> | Magnet Lvl: <b style="color:#fff">${save.magnetLevel}</b></div>
+    <button class="buy-btn" onclick="upgradeEngine()">⚡ Upgrade Engine (${engCost}🪙)</button>
+    <button class="magnet-btn" onclick="upgradeMagnet()">🧲 Upgrade Magnet (${magCost}🪙)</button>`;
+  document.getElementById("garage-category-title").innerText=garageCategoryTitles[currentCategoryIndex];
+  const div=document.getElementById("cars"); div.innerHTML="";
+  carModels.forEach((c,i)=>{
+    if(c.type!==garageCategories[currentCategoryIndex]) return;
+    const btn=document.createElement("button");
     if(save.unlocked.includes(i)){
-      btn.textContent = (save.selected == i) ? "✓ Equipped: " + c.name : "Equip " + c.name;
-      btn.style.border = (save.selected == i) ? "2px solid #00ffc8" : "none";
-      btn.style.background = (save.selected == i) ? "#222" : "#333";
-      btn.onclick = () => { save.selected = i; saveGame(); buildCar(); renderMenu(); };
+      btn.textContent=(save.selected==i)?"✓ Equipped: "+c.name:"Equip "+c.name;
+      btn.style.border=(save.selected==i)?"2px solid #00ffc8":"none";
+      btn.style.background=(save.selected==i)?"#222":"#333";
+      btn.onclick=()=>{save.selected=i; saveGame(); buildCar(); renderMenu();};
     } else {
-      const cost = (i+1)*30;
-      btn.className = "buy-btn";
-      btn.textContent = `Unlock ${c.name} (${cost}🪙)`;
-      btn.onclick = () => { if(save.coins >= cost){ save.coins -= cost; coinScore = save.coins; save.unlocked.push(i); saveGame(); renderMenu(); updateShieldButtonUI(); } };
+      const cost=(i+1)*30; btn.className="buy-btn";
+      btn.textContent=`Unlock ${c.name} (${cost}🪙)`;
+      btn.onclick=()=>{if(save.coins>=cost){save.coins-=cost; coinScore=save.coins; save.unlocked.push(i); saveGame(); renderMenu(); updateShieldButtonUI();}};
     }
     div.appendChild(btn);
   });
-  document.getElementById('menu-coins').innerText = save.coins;
-  document.getElementById('menu-best').innerText = save.highScore;
-  document.getElementById('engineStats').innerText = `Engine: Lvl ${save.engineLevel}`;
-  document.getElementById('magnetStats').innerText = `Magnet: Lvl ${save.magnetLevel}`;
-  document.getElementById('shieldStatus').innerText = save.hasShield ? "Shield: ACTIVE" : "Shield: NONE";
-  document.getElementById('best-ui').innerText = `Best: ${save.highScore} m`;
-  document.getElementById('coins').innerText = save.coins;
-  if(shieldMesh) shieldMesh.visible = save.hasShield;
+  document.getElementById('menu-coins').innerText=save.coins;
+  document.getElementById('menu-best').innerText=save.highScore;
+  document.getElementById('engineStats').innerText=`Engine: Lvl ${save.engineLevel}`;
+  document.getElementById('magnetStats').innerText=`Magnet: Lvl ${save.magnetLevel}`;
+  document.getElementById('shieldStatus').innerText=save.hasShield?"Shield: ACTIVE":"Shield: NONE";
+  document.getElementById('best-ui').innerText=`Best: ${save.highScore} m`;
+  document.getElementById('coins').innerText=save.coins;
+  if(shieldMesh) shieldMesh.visible=save.hasShield;
 }
-
-function updateShieldButtonUI() {
-    const btn = document.getElementById('inGameShieldBtn');
-    if (!btn) return;
-    if (save.hasShield) { btn.disabled = true; btn.innerText = "Shield Equipped"; }
-    else if (coinScore < 100) { btn.disabled = true; btn.innerText = "Need 100🪙 for Shield"; }
-    else { btn.disabled = false; btn.innerText = "Buy Shield (100🪙)"; }
+function updateShieldButtonUI(){
+  const btn=document.getElementById('inGameShieldBtn'); if(!btn) return;
+  if(save.hasShield){btn.disabled=true; btn.innerText="Shield Equipped";}
+  else if(coinScore<100){btn.disabled=true; btn.innerText=`Need 100🪙 (have ${coinScore})`;}
+  else{btn.disabled=false; btn.innerText="Buy Shield (100🪙)";}
 }
-
-window.upgradeEngine = () => { if(save.coins >= save.engineLevel*50){ save.coins -= save.engineLevel*50; coinScore = save.coins; save.engineLevel++; saveGame(); renderMenu(); updateShieldButtonUI(); } };
-window.upgradeMagnet = () => { if(save.coins >= save.magnetLevel*150){ save.coins -= save.magnetLevel*150; coinScore = save.coins; save.magnetLevel++; saveGame(); renderMenu(); updateShieldButtonUI(); } };
-window.buyShield = () => {
-    if(coinScore >= 100 && !save.hasShield){
-        coinScore -= 100; save.coins = coinScore; save.hasShield = true; saveGame(); renderMenu();
-        document.getElementById('coins').innerText = coinScore;
-        document.getElementById('shieldStatus').innerText = "Shield: ACTIVE";
-        if(shieldMesh) shieldMesh.visible = true;
-        updateShieldButtonUI();
-    }
-};
-window.resetGame = () => {
-  if(confirm("Are you sure you want to reset all progress?")){
-    save = { coins:0, unlocked:[0], selected:0, engineLevel:1, hasShield:false, highScore:0, magnetLevel:1 };
-    saveGame(); location.reload();
-  }
-};
-
+window.upgradeEngine=()=>{if(save.coins>=save.engineLevel*50){save.coins-=save.engineLevel*50; coinScore=save.coins; save.engineLevel++; saveGame(); renderMenu(); updateShieldButtonUI();}};
+window.upgradeMagnet=()=>{if(save.coins>=save.magnetLevel*150){save.coins-=save.magnetLevel*150; coinScore=save.coins; save.magnetLevel++; saveGame(); renderMenu(); updateShieldButtonUI();}};
+window.buyShield=()=>{if(coinScore>=100&&!save.hasShield){coinScore-=100; save.coins=coinScore; save.hasShield=true; saveGame(); renderMenu(); document.getElementById('coins').innerText=coinScore; document.getElementById('shieldStatus').innerText="Shield: ACTIVE"; if(shieldMesh) shieldMesh.visible=true; updateShieldButtonUI();}};
+window.resetGame=()=>{if(confirm("Reset all progress?")){save={coins:0,unlocked:[0],selected:0,engineLevel:1,hasShield:false,highScore:0,magnetLevel:1}; saveGame(); location.reload();}};
 renderMenu();
 
-const keys = {};
-onkeydown = e => keys[e.code] = true;
-onkeyup = e => keys[e.code] = false;
-
-const bindTouch = (btnId, keyCode) => {
-    const btn = document.getElementById(btnId);
-    if(!btn) return;
-    btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyCode] = true; });
-    btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyCode] = false; });
-};
+// ── Controls ──
+const keys={};
+onkeydown=e=>keys[e.code]=true;
+onkeyup=e=>keys[e.code]=false;
+const bindTouch=(id,k)=>{const b=document.getElementById(id); if(!b) return; b.addEventListener('touchstart',e=>{e.preventDefault(); keys[k]=true;},{passive:false}); b.addEventListener('touchend',e=>{e.preventDefault(); keys[k]=false;},{passive:false});};
 bindTouch('btn-left','ArrowLeft'); bindTouch('btn-right','ArrowRight');
 bindTouch('btn-accel','ArrowUp'); bindTouch('btn-brake','ArrowDown'); bindTouch('btn-nitro','Space');
 
-const trafficGeo = new THREE.BoxGeometry(2, 1, 4);
-const trafficMat = new THREE.MeshStandardMaterial({color:0x00e0e0});
-const traffic = [];
-for(let i=0; i<6; i++){
-  const t = new THREE.Mesh(trafficGeo, trafficMat);
-  t.position.set(Math.random()*14-7, 1, -200-i*120);
-  scene.add(t); traffic.push(t);
+// ── Traffic ──
+const trafficColors=[0x00e0e0,0xff8800,0xff00aa,0x44ff44,0xffff00,0xaa44ff];
+const traffic=[];
+for(let i=0;i<6;i++){
+  const g=new THREE.Group();
+  const mat=new THREE.MeshBasicMaterial({color:trafficColors[i%6]});
+  const darkM=new THREE.MeshBasicMaterial({color:0x111111});
+  const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.55,4.0),mat); body.position.y=0.9;
+  const cab=new THREE.Mesh(new THREE.BoxGeometry(1.6,0.5,1.8),darkM); cab.position.set(0,1.42,-0.1);
+  const wGeo=new THREE.CylinderGeometry(0.45,0.45,0.65,10);
+  const wFL=new THREE.Mesh(wGeo,darkM); wFL.rotation.z=Math.PI/2; wFL.position.set(-1.1,0.58,1.3);
+  const wFR=wFL.clone(); wFR.position.x=1.1;
+  const wRL=wFL.clone(); wRL.position.z=-1.3; const wRR=wRL.clone(); wRR.position.x=1.1;
+  const hl=new THREE.Mesh(new THREE.BoxGeometry(1.4,0.1,0.08),new THREE.MeshBasicMaterial({color:0xffffff})); hl.position.set(0,1.0,2.05);
+  const tl=new THREE.Mesh(new THREE.BoxGeometry(1.4,0.1,0.08),new THREE.MeshBasicMaterial({color:0xff2200})); tl.position.set(0,1.0,-2.05);
+  g.add(body,cab,wFL,wFR,wRL,wRR,hl,tl);
+  g.position.set(Math.random()*14-7,0,-200-i*120);
+  scene.add(g); traffic.push(g);
 }
 
-const coinGeo = new THREE.TorusGeometry(.6, .2, 8, 16);
-const coinMat = new THREE.MeshBasicMaterial({color:0xffff00});
-const coinsArr = [];
-for(let i=0; i<20; i++){
-  const c = new THREE.Mesh(coinGeo, coinMat);
-  c.rotation.x = Math.PI/2;
-  c.position.set(Math.random()*14-7, 1, -120-i*60);
+// ── Coins ──
+const coinGeo=new THREE.TorusGeometry(0.6,0.2,8,14);
+const coinMat=new THREE.MeshBasicMaterial({color:0xffff00});
+const coinsArr=[];
+for(let i=0;i<8;i++){
+  const c=new THREE.Mesh(coinGeo,coinMat);
+  c.rotation.x=Math.PI/2; c.position.set(Math.random()*14-7,1,-200-i*150);
   scene.add(c); coinsArr.push(c);
 }
 
-const magnetPowerup = new THREE.Group();
-const m1 = new THREE.Mesh(new THREE.BoxGeometry(1,1,0.5), new THREE.MeshBasicMaterial({color:0xff0000}));
-const m2 = new THREE.Mesh(new THREE.BoxGeometry(1,1,0.5), new THREE.MeshBasicMaterial({color:0x0000ff}));
-m1.position.x = -0.6; m2.position.x = 0.6;
-magnetPowerup.add(m1, m2);
-magnetPowerup.position.set(0, 1.5, -500);
-scene.add(magnetPowerup);
+// ── Magnet Powerup ──
+const magnetPowerup=new THREE.Group();
+const mBody=new THREE.Mesh(new THREE.TorusGeometry(0.8,0.25,8,12,Math.PI),new THREE.MeshBasicMaterial({color:0xff2222}));
+mBody.rotation.z=Math.PI/2;
+const mPoleL=new THREE.Mesh(new THREE.BoxGeometry(0.3,0.6,0.3),new THREE.MeshBasicMaterial({color:0x0000ff})); mPoleL.position.set(-0.8,-0.3,0);
+const mPoleR=new THREE.Mesh(new THREE.BoxGeometry(0.3,0.6,0.3),new THREE.MeshBasicMaterial({color:0xff0000})); mPoleR.position.set(0.8,-0.3,0);
+const mGlow=new THREE.Mesh(new THREE.SphereGeometry(1.2,8,6),new THREE.MeshBasicMaterial({color:0xff00ff,transparent:true,opacity:0.12}));
+magnetPowerup.add(mBody,mPoleL,mPoleR,mGlow);
+magnetPowerup.position.set(0,1.8,-600); scene.add(magnetPowerup);
 
-const clock = new THREE.Clock();
-const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-const hitTraffic = (a, b) => Math.abs(a.position.x-b.position.x)<2.0 && Math.abs(a.position.z-b.position.z)<3.5;
-const hitCoin    = (a, b) => Math.abs(a.position.x-b.position.x)<3.0 && Math.abs(a.position.z-b.position.z)<4.5;
-const hitMagnet  = (a, b) => Math.abs(a.position.x-b.position.x)<3.5 && Math.abs(a.position.z-b.position.z)<5.0;
+const clock=new THREE.Clock();
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const hitTraffic=(a,b)=>Math.abs(a.position.x-b.position.x)<2.2&&Math.abs(a.position.z-b.position.z)<3.8;
+const hitCoin=(a,b)=>Math.abs(a.position.x-b.position.x)<3.0&&Math.abs(a.position.z-b.position.z)<4.5;
+const hitMagnet=(a,b)=>Math.abs(a.position.x-b.position.x)<3.5&&Math.abs(a.position.z-b.position.z)<5.0;
+const nearMissCheck=(a,b)=>Math.abs(a.position.x-b.position.x)<3.5&&Math.abs(a.position.z-b.position.z)<5.5;
+let nearMissPopTimer=0;
+function showNearMiss(){ nearMissPopTimer=1.5; document.getElementById('near-miss-pop').style.display='block'; }
 
+// ── Game Loop ──
 function animate(){
   requestAnimationFrame(animate);
-  if(!gameStarted){ renderer.render(scene, camera); return; }
-  if(gameOver || isPaused){ renderer.render(scene, camera); return; }
+  if(document.hidden) return;
+  if(!gameStarted||isPaused){renderer.render(scene,camera); return;}
+  if(gameOver){renderer.render(scene,camera); return;}
 
-  const d = clock.getDelta();
-  const maxSpeed = 220 + (save.engineLevel*30);
-  const acceleration = 140 + (save.engineLevel*20);
-  const magnetRange = 10 + (save.magnetLevel*8);
+  const d=Math.min(clock.getDelta(),0.05);
 
-  const accel = (keys['KeyW']||keys['ArrowUp']) ? 1 : (keys['KeyS']||keys['ArrowDown']) ? -0.7 : 0;
-  speed = clamp(speed + accel*acceleration*d, 0, maxSpeed);
+  fpsFrames++;
+  const now=performance.now();
+  if(now-fpsLast>=500){
+    document.getElementById('fps-counter').innerText=Math.round(fpsFrames*1000/(now-fpsLast))+' FPS';
+    fpsFrames=0; fpsLast=now;
+  }
 
-  if(keys['Space'] && nitro > 0){
-    speed += acceleration*d; nitro -= 60*d;
-    flame.visible = true; flame.scale.set(1, 1+Math.random()*0.8, 1);
-    camera.fov = THREE.MathUtils.lerp(camera.fov, 95, 0.1);
-    if(!isBoosting && audioStarted){ nitroSnd.play().catch(()=>{}); isBoosting = true; }
+  const maxSpeed=220+(save.engineLevel*30);
+  const acceleration=140+(save.engineLevel*20);
+  const magnetRange=10+(save.magnetLevel*8);
+  const diffMult=1+Math.min(distanceTraveled/5000,2.0);
+
+  const accel=(keys['KeyW']||keys['ArrowUp'])?1:(keys['KeyS']||keys['ArrowDown'])?-0.7:0;
+  speed=clamp(speed+accel*acceleration*d,0,maxSpeed);
+
+  const boosting=keys['Space']&&nitro>0;
+  if(boosting){
+    speed+=acceleration*d; nitro-=60*d; flame.visible=true;
+    flame.scale.set(1,1+Math.random()*0.8,1);
+    camera.fov=THREE.MathUtils.lerp(camera.fov,95,0.1);
+    if(!isBoosting&&audioStarted){nitroSnd.play().catch(()=>{}); isBoosting=true;}
+    document.getElementById('nitro-vignette').style.background='radial-gradient(ellipse at center,transparent 40%,rgba(0,255,204,0.18) 100%)';
   } else {
-    nitro = clamp(nitro+30*d, 0, 100); flame.visible = false;
-    camera.fov = THREE.MathUtils.lerp(camera.fov, 70, 0.1);
-    if(isBoosting){ nitroSnd.pause(); nitroSnd.currentTime = 0; isBoosting = false; }
+    nitro=clamp(nitro+30*d,0,100); flame.visible=false;
+    camera.fov=THREE.MathUtils.lerp(camera.fov,70,0.1);
+    if(isBoosting){nitroSnd.pause(); nitroSnd.currentTime=0; isBoosting=false;}
+    document.getElementById('nitro-vignette').style.background='radial-gradient(ellipse at center,transparent 50%,rgba(0,255,204,0) 100%)';
   }
   camera.updateProjectionMatrix();
 
-  const steeringInput = (keys['KeyA']||keys['ArrowLeft'] ? -1 : keys['KeyD']||keys['ArrowRight'] ? 1 : 0);
-  steer += (steeringInput - steer)*0.1;
-  if(steeringInput === 0) steer *= 0.85;
-  car.position.x = clamp(car.position.x + steer*speed*0.011, -8, 8);
-  car.rotation.z = steer*0.15;
-  car.rotation.x = (speed/maxSpeed)*0.05;
+  const steeringInput=(keys['KeyA']||keys['ArrowLeft'])?-1:(keys['KeyD']||keys['ArrowRight'])?1:0;
+  steer+=(steeringInput-steer)*0.1;
+  if(!steeringInput) steer*=0.85;
+  car.position.x=clamp(car.position.x+steer*speed*0.011,-8,8);
+  car.rotation.z=steer*0.15; car.rotation.x=(speed/maxSpeed)*0.05;
+  carLight.position.set(car.position.x,car.position.y+3,car.position.z-2);
 
-  // Smooth camera follow
-  const targetCamX = car.position.x * 0.5;
-  const targetCamZ = car.position.z + CAM_DIST;
-  camTarget.x = THREE.MathUtils.lerp(camTarget.x, targetCamX, CAM_LERP);
-  camTarget.y = THREE.MathUtils.lerp(camTarget.y, CAM_HEIGHT, CAM_LERP);
-  camTarget.z = THREE.MathUtils.lerp(camTarget.z, targetCamZ, CAM_LERP);
+  camTarget.x=THREE.MathUtils.lerp(camTarget.x,car.position.x*0.5,CAM_LERP);
+  camTarget.y=THREE.MathUtils.lerp(camTarget.y,CAM_HEIGHT,CAM_LERP);
+  camTarget.z=THREE.MathUtils.lerp(camTarget.z,car.position.z+CAM_DIST,CAM_LERP);
   camera.position.copy(camTarget);
-  camLookTarget.x = THREE.MathUtils.lerp(camLookTarget.x, car.position.x, 0.1);
-  camLookTarget.y = 1; camLookTarget.z = car.position.z - 5;
-  camera.lookAt(camLookTarget);
+  camLookTarget.x=THREE.MathUtils.lerp(camLookTarget.x,car.position.x,0.1);
+  camLookTarget.y=1; camLookTarget.z=car.position.z-5; camera.lookAt(camLookTarget);
 
-  distanceTraveled += (speed*d)/10;
+  distanceTraveled+=(speed*d)/10;
 
-  if(magnetTimeLeft > 0){
-      magnetTimeLeft -= d;
-      document.getElementById('mag-timer-ui').style.display = 'block';
-      document.getElementById('magTime').innerText = Math.ceil(magnetTimeLeft);
-  } else {
-      magnetTimeLeft = Math.max(0, magnetTimeLeft);
-      document.getElementById('mag-timer-ui').style.display = 'none';
+  const speedRatio=speed/maxSpeed;
+  if(speedRatio>0.6){
+    slinesEl.style.display='block';
+    slineEls.forEach(sl=>{sl.style.opacity=((speedRatio-0.6)/0.4*(0.25+Math.random()*0.3)).toFixed(2);});
+  } else { slinesEl.style.display='none'; }
+
+  if(nearMissPopTimer>0){ nearMissPopTimer-=d; if(nearMissPopTimer<=0) document.getElementById('near-miss-pop').style.display='none'; }
+
+  if(magnetTimeLeft>0){
+    magnetTimeLeft-=d;
+    if(domFrame%DOM_THROTTLE===0){ document.getElementById('mag-timer-ui').style.display='block'; document.getElementById('magTime').innerText=Math.ceil(magnetTimeLeft); }
+  } else { magnetTimeLeft=Math.max(0,magnetTimeLeft); document.getElementById('mag-timer-ui').style.display='none'; }
+
+  if(Math.floor(distanceTraveled/1000)>lastMilestone){
+    lastMilestone=Math.floor(distanceTraveled/1000); coinScore+=15; save.coins=coinScore; saveGame(); updateShieldButtonUI();
+    const flash=document.getElementById('reward-flash'); flash.style.display='block'; setTimeout(()=>flash.style.display='none',2000);
+  }
+  if(Math.floor(distanceTraveled)>save.highScore){save.highScore=Math.floor(distanceTraveled); saveGame();}
+
+  domFrame++;
+  if(domFrame%DOM_THROTTLE===0){
+    document.getElementById('dist-ui').innerText=Math.floor(distanceTraveled)+" m";
+    document.getElementById('best-ui').innerText=`Best: ${save.highScore} m`;
+    document.getElementById('coins').innerText=coinScore;
+    document.getElementById('speed-val').innerText=Math.floor(speed);
+    document.getElementById('healthBar').style.width=health+"%";
+    document.getElementById('healthBar').style.background=health>60?'#00ff66':health>30?'#ffaa00':'#ff2222';
+    document.getElementById('nitroBar').style.width=nitro+"%";
+    document.getElementById('nitroBar').style.background=boosting?'#ff6600':'#00ffcc';
   }
 
-  if(Math.floor(distanceTraveled/1000) > lastMilestone){
-    lastMilestone = Math.floor(distanceTraveled/1000);
-    coinScore += 50; save.coins = coinScore; saveGame(); updateShieldButtonUI();
-    const flash = document.getElementById('reward-flash');
-    flash.style.display = 'block'; setTimeout(() => flash.style.display = 'none', 2000);
-  }
-
-  if(Math.floor(distanceTraveled) > save.highScore){
-    save.highScore = Math.floor(distanceTraveled); saveGame();
-    document.getElementById('best-ui').innerText = `Best: ${save.highScore} m`;
-  }
-
-  document.getElementById('dist-ui').innerText = Math.floor(distanceTraveled)+" m";
-  document.getElementById('coins').innerText = coinScore;
-  document.getElementById('speed-val').innerText = Math.floor(speed);
-  document.getElementById('healthBar').style.width = health+"%";
-  document.getElementById('nitroBar').style.width = nitro+"%";
-
-  if(shieldMesh && save.hasShield){ shieldMesh.rotation.y += d*2; shieldMesh.rotation.z += d; }
+  if(shieldMesh&&save.hasShield){shieldMesh.rotation.y+=d*2; shieldMesh.rotation.z+=d;}
 
   if(audioStarted){
-      engineSnd.playbackRate = 0.6 + speed/maxSpeed;
-      if(speed > 0.5 && !gameOver){ if(engineSnd.paused) engineSnd.play().catch(()=>{}); }
-      else { if(!engineSnd.paused) engineSnd.pause(); }
+    engineSnd.playbackRate=0.6+speed/maxSpeed;
+    if(speed>0.5&&!gameOver){if(engineSnd.paused) engineSnd.play().catch(()=>{});}
+    else if(!engineSnd.paused) engineSnd.pause();
   }
 
-  for(let l of lines){ l.position.z += speed*d*2; if(l.position.z > 20) l.position.z -= 3200; }
-  for(let r of rails){ r.position.z += speed*d*2; if(r.position.z > 20) r.position.z -= 4000; }
-  for(let b of buildings){
-    b.position.z += speed*d*2;
-    if(b.position.z > 50){ b.position.z -= 4000; const isLeft = Math.random() > 0.5; b.position.x = isLeft ? -(Math.random()*300+20) : (Math.random()*300+20); }
+  for(const l of lines){l.position.z+=speed*d*2; if(l.position.z>20) l.position.z-=1200;}
+  for(const r of rails){r.position.z+=speed*d*2; if(r.position.z>20) r.position.z-=1600;}
+  for(const b of buildings){
+    b.position.z+=speed*d*2;
+    if(b.position.z>50){b.position.z-=3200; const left=Math.random()>0.5; b.position.x=left?-(Math.random()*200+18):Math.random()*200+18;}
   }
 
-  magnetPowerup.position.z += speed*d*2; magnetPowerup.rotation.y += d*3;
-  if(magnetPowerup.position.z > 20){ magnetPowerup.position.z = -1000-Math.random()*1000; magnetPowerup.position.x = Math.random()*14-7; }
-  if(hitMagnet(car, magnetPowerup)){ magnetTimeLeft = 30; magnetPowerup.position.z = -1500; if(audioStarted){ magnetSnd.currentTime=0; magnetSnd.play().catch(()=>{}); } }
+  magnetPowerup.position.z+=speed*d*2; magnetPowerup.rotation.y+=d*3;
+  if(magnetPowerup.position.z>20){magnetPowerup.position.z=-800-Math.random()*1000; magnetPowerup.position.x=Math.random()*14-7;}
+  if(hitMagnet(car,magnetPowerup)){magnetTimeLeft=30; magnetPowerup.position.z=-1500; if(audioStarted){magnetSnd.currentTime=0; magnetSnd.play().catch(()=>{});}}
 
-  for(let t of traffic){
-    t.position.z += speed*d*2;
-    if(t.position.z > 20){ t.position.z = -400; t.position.x = Math.random()*14-7; }
-    if(hitTraffic(car, t) && !t.userData.hit){
-      t.userData.hit = true;
-      if(save.hasShield){
-          save.hasShield = false; saveGame();
-          document.getElementById('shieldStatus').innerText = "Shield: BROKEN";
-          shieldMesh.visible = false; updateShieldButtonUI();
-      } else {
-        health = clamp(health-20, 0, 100);
-        if(health <= 0){
-          gameOver = true; car.visible = false;
-          document.getElementById('pause-btn').style.display = 'none';
-          document.getElementById('sound-toggle-btn').style.display = 'none';
-          document.getElementById('gameover').style.display = 'block';
-          document.getElementById('healthBar').style.width = "0%";
-          if(audioStarted){ engineSnd.pause(); music.pause(); nitroSnd.pause(); gameOverSnd.play().catch(()=>{}); }
-        } else { if(audioStarted){ damageSnd.currentTime=0; damageSnd.play().catch(()=>{}); } }
+  for(const t of traffic){
+    t.position.z+=speed*d*2*diffMult;
+    if(t.position.z>20){t.position.z=-300-Math.random()*400; t.position.x=Math.random()*14-7;}
+    if(hitTraffic(car,t)&&!t.userData.hit){
+      t.userData.hit=true;
+      if(save.hasShield){save.hasShield=false; saveGame(); document.getElementById('shieldStatus').innerText="Shield: BROKEN"; shieldMesh.visible=false; updateShieldButtonUI();}
+      else{
+        health=clamp(health-20,0,100); triggerDamageFlash();
+        if(health<=0){
+          gameOver=true; car.visible=false;
+          document.getElementById('pause-btn').style.display='none';
+          document.getElementById('sound-toggle-btn').style.display='none';
+          document.getElementById('gameover').style.display='block';
+          document.getElementById('go-stats').innerHTML=`Distance: <b>${Math.floor(distanceTraveled)} m</b><br>Coins: <b>${coinScore}</b><br>Top Speed: <b>${Math.floor(maxSpeed)} km/h</b>`;
+          document.getElementById('healthBar').style.width="0%";
+          if(audioStarted){engineSnd.pause(); music.pause(); nitroSnd.pause(); gameOverSnd.play().catch(()=>{});}
+        } else { if(audioStarted){damageSnd.currentTime=0; damageSnd.play().catch(()=>{});} }
       }
-      setTimeout(() => t.userData.hit = false, 500);
+      setTimeout(()=>t.userData.hit=false,500);
+    }
+    if(!t.userData.hit&&!t.userData.nearMissed&&nearMissCheck(car,t)&&!hitTraffic(car,t)){
+      t.userData.nearMissed=true; coinScore+=3; save.coins=coinScore; saveGame(); updateShieldButtonUI(); showNearMiss();
+      setTimeout(()=>t.userData.nearMissed=false,1200);
     }
   }
 
-  for(let c of coinsArr){
-    c.rotation.y += 3*d; c.position.z += speed*d*2;
-    if(magnetTimeLeft > 0){
-        const dx = car.position.x-c.position.x, dz = car.position.z-c.position.z;
-        const dist = Math.sqrt(dx*dx+dz*dz);
-        if(dist < magnetRange){ c.position.x += dx*8*d; c.position.z += dz*8*d; }
+  for(const c of coinsArr){
+    c.rotation.y+=3*d; c.position.z+=speed*d*2;
+    if(magnetTimeLeft>0){
+      const dx=car.position.x-c.position.x, dz=car.position.z-c.position.z, dist=Math.sqrt(dx*dx+dz*dz);
+      if(dist<magnetRange){c.position.x+=dx*8*d; c.position.z+=dz*8*d;}
     }
-    if(c.position.z > 20){ c.position.z = -200-Math.random()*200; c.position.x = Math.random()*14-7; c.userData.collected = false; }
-    if(hitCoin(car,c) && !c.userData.collected){
-      c.userData.collected = true; c.position.z = 50;
-      coinScore++; save.coins = coinScore; saveGame(); updateShieldButtonUI();
+    if(c.position.z>20){c.position.z=-200-Math.random()*200; c.position.x=Math.random()*14-7; c.userData.collected=false;}
+    if(hitCoin(car,c)&&!c.userData.collected){
+      c.userData.collected=true; c.position.z=50;
+      coinScore++; save.coins=coinScore; saveGame(); updateShieldButtonUI();
       if(audioStarted) playCoinSound();
     }
   }
 
-  renderer.render(scene, camera);
+  renderer.render(scene,camera);
 }
-
 animate();
 
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight);});
 </script>
 </body>
 </html>
